@@ -1,0 +1,9 @@
+{
+  "name": "gst_compliance_checker",
+  "description": "Use this tool to verify if the GSTIN provided on a supplier invoice perfectly matches the official registered GSTIN found in the Vendor Master database. Run this to check for unregistered entities or tax fraud.",
+  "color": "linear-gradient(rgb(157,37,114), rgb(18,240,29))",
+  "iconSrc": "",
+  "schema": "[{\"id\":0,\"property\":\"vendor_gstin\",\"type\":\"string\",\"description\":\"GSTIN listed on the Supplier_Invoices\",\"required\":true},{\"id\":1,\"property\":\"official_gstin\",\"type\":\"string\",\"description\":\"Official registered GSTIN from the Vendor_Master table\",\"required\":true}]",
+  "func": "// Simple string comparison for the GSTINs\nif ($vendor_gstin === $official_gstin) {\n    return \"PASS: Invoice GSTIN matches the official registered Vendor GSTIN.\";\n} else {\n    // Must return a string\n    return `RISK DETECTED: GSTIN Mismatch! The invoice shows ${$vendor_gstin}, but the official master data shows ${$official_gstin}. This indicates possible fraud or an unregistered entity.`;\n}",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

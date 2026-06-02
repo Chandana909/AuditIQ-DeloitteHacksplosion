@@ -1,0 +1,189 @@
+Hacksplosion 2026
+Level 2
+
+Text boxes with arrows
+  Team  name
+  Problem statement
+  Team Leader name
+  College name  
+  Participant names & USN  Hacksagon
+Chaitanya Bharathi Institute Of Technology (CBIT),
+Hyderabad
+Audit Analytics from Source Data
+Vishnu Vardhan Karamsetty (160123771113)
+Shravya Jallepally (160123737163)
+Chandana Devanaboyina (160123737012)  
+Mir Inayat Ahmed(160123733193)  
+Pragallapati Saketh (160123733129)
+Vishnu Vardhan Karamsetty (160123771113)
+Problem Definition
+Challenges
+Fragmented Financial Data - Invoices, POs, GRNs,
+and approval trails
+High ly repetitive audit processes involving
+multiple large data sources.
+Variation in policies between organizations that
+impacts approval validation
+Lack of explainable prioritization of high-risk
+exceptions
+Core Problem
+The problem is not lack of financial data, but lack of audit-ready intelligence across connected financial evidence.Context
+Large amounts of invoices, purchase records,
+goods receipts, tax documents, and approval
+trails are handled by organizations
+The auditor has to validate transactions by
+checking for duplicate transactions, GSTIN
+compliance, and internal approval policies
+The methods currently used are slow,
+repetitive, and lack priority on actual high-risk
+transactions
+Solution Approach  
+How the Solution Works?
+ POC Build:  Financial records (ERP / invoices / PO / GRN /
+approvals) are ingested and normalized before audit
+analysis.
+Financial masking  is performed on the data before agent
+execution for secure enterprise deployment
+Controls-First Design: Approval logic, vendor rules, tax
+controls (FASB / GST controls etc.) are executed before
+AI reasoning.
+Governed Outcomes:  High-risk anomalies are sent
+through Human -in-the-Loop review, while all the
+decision have a machine-verifiable audit trail.
+Client-Configurable Policy Engine : Approval logic,
+vendor rules, tax controls can be customized to client
+requirements.The financial evidence is unified  under a
+transaction layer that is audit-ready across invoices,
+PO/GRN, vendor records, and approval records.  
+Deterministic audit controls execute first using
+three-way matching, compliance checks, and
+client-defined rules.  
+The multi-agent intelligence  checks for timing
+anomalies, vendor collusion indicators, invoice
+splitting, and vendor relationships before
+determining a severity score.  
+High-risk exceptio ns are routed to Human-in-the-
+Loop review , and auditors can also leverage Realm
+AI to query and investigate flagged transactions and
+associated evidence.Design Principles
+Unique Differentiators  
+Forensic-Grade Traceability (ISA 230-Aligned Design): Machine-verifiable chain of evidence: rule → evidence → agent →
+reviewer → outcome
+Three-Way Matching at Full Population Scale : All PO-GRN-Invoice rows are matched, eliminating the sample space where
+unknown exceptions persist.
+Proactive Tax Intelligence: Unlike traditional reactive audits, the multi-agent system detects missed tax credits and
+recommends structural changes to the procurement process to achieve maximum tax efficiency.
+Multi-Agent Architecture : Specialisation Over Generalisation: Seven agents verify financial risk stepwise rather than
+forcing monolithic models to generalise across all possible cases.
+Policy Engine Built for Every Client : Customise approval logic, vendor rules, and compliance rules without modifying the
+audit workflow.
+AI-Assisted Vendor Intelligence: Cross-checks GST taxpayer profiles with external data to detect collusion rings and
+unknown vendor risks outside the scope of internal ERP data.
+Human-in-the-Loop Explainable Audit Governance (Approve/Reject/Override with justification)
+GenW modules:
+AppMaker - financial data ingestion, workflow orchestration, and audit UI layer
+Agent Builder - multi-agent audit engine with configurable Human-in-the-Loop decisions
+Playground - anomaly dashboards, risk views, and audit analytics
+Realm AI - conversational audit copilot for evidence exploration
+  
+Vendors list
+accept
+Risk >=
+threshold
+rejected
+approved
+Risk < threshold
+Architectural Diagram
+What will the user see?
+Interactive Analytics Dashboard: An interface using the GenW Playground platform that shows the visualization of
+risks using heat maps and duplicate clusters and displays the results of the internal compliance checks.
+Vendor Intelligence View: This interface will reveal the presence of shell companies that have high risks using the risk
+metrics calculated through autonomous external lookups and GST lookups.
+Explainable AI Reasoning Interface: Using the GenW Realm AI assistant interface, the user can get the "Why?" for
+the risks using the "Why Flagged?" interface and access the actual cited sources for the evidence in the form of
+actual financial data sources.
+Human-in-the-Loop (HITL) Review Queue: This interface will allow the auditor to review the escalations that have
+been flagged by the agents and allow the auditor to approve or reject the decisions while recording the reasons for
+the decision.
+Automated Audit Packs: This interface will contain the structured and automatically generated output in the form
+of exception reports and links to the actual sources and the entire audit log.
+W atch our Prototype Dem o:
+Demo Video link
+Note: This video demonstrates our main multi-agent system and functional capabilities. The UI/UX will be further
+enhanced and refined.
+Scalability Potential
+Data & Pipeline Scalability: Concurrently processes
+thousands of rows without breaking. It leverages high-
+throughput REST APIs and distributed processing to normalize
+everything from Excel ledgers to complex ERP data.
+Architectural & Token Scalability: The Multi-Agent
+Architecture  acts as decoupled microservices. Layered
+financial validation through specialised agents  allows
+seamless addition of new rules while drastically reducing LLM
+token consumption and API costs.
+Functional Extensibility: The platform natively supports multi-
+department and multi-entity audit monitoring, with the
+flexibility to extend into continuous auditing and complex
+forensic investigation workflows over time.
+Who Benefits 
+Internal Auditors – Faster investigation &
+automated anomaly prioritization
+Finance & Procurement Teams - Early
+detection of invoice and vendor risks
+Compliance & Risk Officers – Explainable
+audit trails for regulatory governance
+Large Enterprises – Scalable monitoring
+across high-volume financial systems
+Scalability & Beneficiaries
+Beneficiaries
+A. Efficiency & Coverage
+Parallel Execution: 5 deterministic control agents execute in parallel, which
+drastically reduces the audit time.
+100% Population Coverage: Analyzes the entire population, not just a
+sample, to uncover hidden fraud.
+B. Risk Detection & Prioritization
+Mathematical Risk Scoring: Offers a weighted formula to provide a strict
+ranked queue of risks based on data, not just an opinion provided by the AI.
+External Context: Adds real-time GST and internet feeds to identify unknown
+risks outside the organization's data.
+C. Governance & Compliance
+Compliant Evidence Chain: Offers complete lineage from the rule to the
+reviewer to satisfy ISA 230 and NIST AI RMF.
+Tamper-Evident Logging: Requires justifications for Human-in-the-Loop
+changes to be written back into the log to close the loop.
+Impact
+Assumptions
+ASSUMPTION
+Financial records available in structured or
+semi-structured digital form (Excel / ERP
+exports / invoice logs)
+Common document identifiers (invoice no.,
+PO no., vendor ID) available across records
+Organization audit policies configurable as
+rule inputs
+Key invoice metadata (GSTIN, tax values,
+approvals) available
+REASON
+Enterprise audits typically use ERP exports,
+ledgers, or spreadsheets
+Required for automated PO–GRN–Invoice
+matching
+Required for statutory and compliance
+checks
+IMPACT
+Scanned documents require additional
+extraction before analysis
+Prevents deterministic PO–GRN–Invoice
+matching, increasing dependence on
+probabilistic anomaly scoring
+Reduces statutory validation depth and
+tax-control reliability
+Internal control rules vary across
+organizations
+Misconfigured policies distort approval
+validation and escalation logic
+High-risk anomalies reviewed by human
+auditors
+Financial audits require human oversight
+Ensures accountability and decision
+validation

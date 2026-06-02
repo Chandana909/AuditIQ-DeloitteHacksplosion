@@ -1,0 +1,9 @@
+{
+  "name": "duplicate_invoice_checker",
+  "description": "Use this tool to verify if a specific invoice number from a specific vendor already exists in the historical database. Always use this to prevent double-paying an invoice.",
+  "color": "linear-gradient(rgb(115,12,253), rgb(78,37,189))",
+  "iconSrc": "",
+  "schema": "[{\"id\":1,\"property\":\"invoice_no\",\"type\":\"string\",\"description\":\"The invoice number from the Supplier_Invoices table\",\"required\":true},{\"id\":2,\"property\":\"vendor_id\",\"type\":\"string\",\"description\":\"The unique vendor ID from the Supplier_Invoices table\",\"required\":true},{\"id\":3,\"property\":\"historical_matches\",\"type\":\"number\",\"description\":\"The count of times this exact invoice_no and vendor_id combination appears in the database\",\"required\":true}]",
+  "func": "// Evaluates the count of historical matches found in the database\nif ($historical_matches > 1) {\n    return `RISK DETECTED: Duplicate Invoice! Invoice No ${$invoice_no} for Vendor ${$vendor_id} already appears ${$historical_matches} times in the system.`;\n} else if ($historical_matches === 1) {\n    return \"PASS: This is a unique, first-time invoice submission.\";\n} else {\n    // Must return a string\n    return \"PASS: No previous record of this invoice exists.\";\n}",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

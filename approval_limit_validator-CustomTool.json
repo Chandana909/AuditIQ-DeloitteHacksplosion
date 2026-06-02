@@ -1,0 +1,9 @@
+{
+  "name": "approval_limit_validator",
+  "description": "Use this tool to check if an invoice's net amount strictly complies with the financial approval limit of the specific employee who approved it in the system logs.",
+  "color": "linear-gradient(rgb(150,116,17), rgb(145,82,132))",
+  "iconSrc": "",
+  "schema": "[{\"id\":1,\"property\":\"net_amount\",\"type\":\"number\",\"description\":\"The net invoice amount from the Supplier_Invoices table\",\"required\":true},{\"id\":2,\"property\":\"amount_limit\",\"type\":\"number\",\"description\":\"The financial approval limit of the employee from the Approval_Logs table\",\"required\":true},{\"id\":3,\"property\":\"approver_name\",\"type\":\"string\",\"description\":\"The name of the person who approved the transaction from the Approval_Logs table\",\"required\":true}]",
+  "func": "// Validates if the invoice amount is strictly within the approver's financial authority\nif ($net_amount > $amount_limit) {\n    // Must return a string\n    return `HARD VIOLATION: The invoice net amount (${$net_amount}) exceeds the strict approval limit (${$amount_limit}) allowed for ${$approver_name}.`;\n} else {\n    return \"PASS: The approval limit is valid and sufficient for this transaction amount.\";\n}",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

@@ -1,0 +1,221 @@
+-- ============================================================
+-- AUDITIQ v3.0 SEED DATA
+-- 10 Vendors | 20 Invoices | 20 POs | 20 GRNs | 20 Audit Results | 2 Policies
+-- ============================================================
+
+-- ============================================================
+-- 1. VENDOR MASTER (10 vendors)
+-- 6 clean | 2 blacklisted | 2 high shell_risk_score
+-- ============================================================
+INSERT INTO vendor_master (vendor_id, vendor_name, official_gstin, pan_number, vendor_category, registered_address, city, state, country, bank_account_number, bank_ifsc, bank_verified, gstin_status, kyc_status, risk_score_numeric, risk_rating, shell_risk_score, shared_director, shared_ip_address, last_audit_date, is_active, blacklisted, blacklist_status) VALUES
+-- Clean vendors (6)
+('VEN-001', 'Raaju Electronics Pvt Ltd', '27AABCR1234M1Z5', 'AABCR1234M', 'IT Services', '14, MG Road, Andheri West', 'Mumbai', 'Maharashtra', 'India', '50100123456789', 'HDFC0001234', TRUE, 'Active', 'Verified', 12, 'LOW', 5, NULL, NULL, '2025-09-15', TRUE, FALSE, FALSE),
+('VEN-002', 'Sundaram Logistics & Transport', '33AAACS5678N1Z2', 'AAACS5678N', 'Logistics', '88, Anna Salai, T Nagar', 'Chennai', 'Tamil Nadu', 'India', '60200987654321', 'ICIC0006789', TRUE, 'Active', 'Verified', 18, 'LOW', 8, NULL, NULL, '2025-10-02', TRUE, FALSE, FALSE),
+('VEN-003', 'Bhavesh Steel & Iron Works', '24AADCB9012P1Z8', 'AADCB9012P', 'Raw Materials', 'Plot 42, GIDC Industrial Estate', 'Ahmedabad', 'Gujarat', 'India', '70300456123789', 'SBIN0009876', TRUE, 'Active', 'Verified', 25, 'LOW', 10, NULL, NULL, '2025-08-20', TRUE, FALSE, FALSE),
+('VEN-004', 'Krishna Office Supplies', '29AAFCK3456Q1Z1', 'AAFCK3456Q', 'MRO', '23, Brigade Road', 'Bengaluru', 'Karnataka', 'India', '80400321654987', 'AXIS0004321', TRUE, 'Active', 'Verified', 15, 'LOW', 6, NULL, NULL, '2025-09-28', TRUE, FALSE, FALSE),
+('VEN-005', 'Patel & Sons Consultancy LLP', '07AAGCP7890R1Z4', 'AAGCP7890R', 'Professional Services', '5, Connaught Place', 'New Delhi', 'Delhi', 'India', '90500789456123', 'KKBK0007890', TRUE, 'Active', 'Verified', 20, 'LOW', 7, NULL, NULL, '2025-10-10', TRUE, FALSE, FALSE),
+('VEN-006', 'Meghna Power Solutions', '19AAHCM2345S1Z6', 'AAHCM2345S', 'Utilities', '11, Park Street', 'Kolkata', 'West Bengal', 'India', '10600147258369', 'PUNB0002345', TRUE, 'Active', 'Verified', 22, 'LOW', 9, NULL, NULL, '2025-09-05', TRUE, FALSE, FALSE),
+-- High shell risk (2)
+('VEN-007', 'Quickfix Traders LLP', '07AAICQ6789T1Z3', 'AAICQ6789T', 'IT Services', 'Shop 3, Karol Bagh', 'New Delhi', 'Delhi', 'India', '20700963852741', 'YESB0006789', FALSE, 'Mismatch', 'Pending', 68, 'HIGH', 82, 'Rakesh Verma', '103.21.45.67', '2025-10-15', TRUE, FALSE, FALSE),
+('VEN-008', 'Shree Ganesh Enterprises', '27AAKCS4567U1Z9', 'AAKCS4567U', 'MRO', 'Office 12, Lower Parel', 'Mumbai', 'Maharashtra', 'India', '30800258147369', 'IDFB0004567', FALSE, 'Mismatch', 'Pending', 72, 'HIGH', 78, 'Rakesh Verma', '103.21.45.67', '2025-10-18', TRUE, FALSE, FALSE),
+-- Blacklisted (2)
+('VEN-009', 'Jaldi Cargo Movers', '36AALCJ8901V1Z7', 'AALCJ8901V', 'Logistics', 'Plot 7, Hitech City', 'Hyderabad', 'Telangana', 'India', '40900741852963', 'UTIB0008901', FALSE, 'Suspended', 'Rejected', 95, 'CRITICAL', 90, NULL, '45.123.78.91', '2025-07-10', FALSE, TRUE, TRUE),
+('VEN-010', 'Bharosa Infotech Solutions', '32AAMCB1234W1Z0', 'AAMCB1234W', 'IT Services', '99, Marine Drive', 'Kochi', 'Kerala', 'India', '50101852963741', 'CNRB0001234', FALSE, 'Invalid', 'Expired', 92, 'CRITICAL', 88, NULL, NULL, '2025-06-22', FALSE, TRUE, TRUE);
+
+-- ============================================================
+-- 2. PURCHASE ORDERS (20 POs)
+-- ============================================================
+INSERT INTO purchase_orders (po_id, vendor_id, po_date, amount, po_amount, quantity, unit_price, tax_amount, total_amount, currency, department, cost_center, requester, approver, approval_date, status, line_item_count, description) VALUES
+-- 10 Perfect matches (PO-001 to PO-010)
+('PO-001', 'VEN-001', '2025-09-01', 250000.00, 250000.00, 10, 25000.00, 45000.00, 295000.00, 'INR', 'IT', 'CC-IT-01', 'Anita Sharma', 'Vikram Singh', '2025-09-02', 'Closed', 1, 'Laptop procurement - Dell Inspiron'),
+('PO-002', 'VEN-002', '2025-09-05', 180000.00, 180000.00, 5, 36000.00, 32400.00, 212400.00, 'INR', 'Operations', 'CC-OPS-02', 'Ramesh Iyer', 'Vikram Singh', '2025-09-06', 'Closed', 1, 'Freight services Mumbai-Chennai'),
+('PO-003', 'VEN-003', '2025-09-08', 500000.00, 500000.00, 100, 5000.00, 90000.00, 590000.00, 'INR', 'Manufacturing', 'CC-MFG-01', 'Suresh Kumar', 'Priya Nair', '2025-09-09', 'Closed', 1, 'Steel rods - 100 units'),
+('PO-004', 'VEN-004', '2025-09-10', 45000.00, 45000.00, 30, 1500.00, 8100.00, 53100.00, 'INR', 'Admin', 'CC-ADM-01', 'Deepa Menon', 'Vikram Singh', '2025-09-11', 'Closed', 1, 'Office stationery bulk order'),
+('PO-005', 'VEN-005', '2025-09-12', 320000.00, 320000.00, 1, 320000.00, 57600.00, 377600.00, 'INR', 'Legal', 'CC-LGL-01', 'Arjun Reddy', 'Priya Nair', '2025-09-13', 'Closed', 1, 'Legal advisory Q3'),
+('PO-006', 'VEN-006', '2025-09-15', 150000.00, 150000.00, 1, 150000.00, 27000.00, 177000.00, 'INR', 'Facilities', 'CC-FAC-01', 'Neha Gupta', 'Vikram Singh', '2025-09-16', 'Closed', 1, 'Generator maintenance contract'),
+('PO-007', 'VEN-001', '2025-09-18', 95000.00, 95000.00, 5, 19000.00, 17100.00, 112100.00, 'INR', 'IT', 'CC-IT-01', 'Anita Sharma', 'Vikram Singh', '2025-09-19', 'Closed', 1, 'Software licenses renewal'),
+('PO-008', 'VEN-002', '2025-09-20', 75000.00, 75000.00, 3, 25000.00, 13500.00, 88500.00, 'INR', 'Operations', 'CC-OPS-02', 'Ramesh Iyer', 'Vikram Singh', '2025-09-21', 'Closed', 1, 'Last mile delivery Bangalore'),
+('PO-009', 'VEN-003', '2025-09-22', 280000.00, 280000.00, 50, 5600.00, 50400.00, 330400.00, 'INR', 'Manufacturing', 'CC-MFG-01', 'Suresh Kumar', 'Priya Nair', '2025-09-23', 'Closed', 1, 'Iron sheets - grade A'),
+('PO-010', 'VEN-004', '2025-09-25', 22000.00, 22000.00, 20, 1100.00, 3960.00, 25960.00, 'INR', 'Admin', 'CC-ADM-01', 'Deepa Menon', 'Vikram Singh', '2025-09-26', 'Closed', 1, 'Printer cartridges'),
+-- 5 Quantity mismatches (PO-011 to PO-015)
+('PO-011', 'VEN-005', '2025-09-28', 200000.00, 200000.00, 20, 10000.00, 36000.00, 236000.00, 'INR', 'HR', 'CC-HR-01', 'Kavita Joshi', 'Priya Nair', '2025-09-29', 'Partially Received', 1, 'HR consultancy hours'),
+('PO-012', 'VEN-006', '2025-10-01', 88000.00, 88000.00, 40, 2200.00, 15840.00, 103840.00, 'INR', 'Facilities', 'CC-FAC-01', 'Neha Gupta', 'Vikram Singh', '2025-10-02', 'Partially Received', 1, 'UPS batteries'),
+('PO-013', 'VEN-001', '2025-10-04', 360000.00, 360000.00, 12, 30000.00, 64800.00, 424800.00, 'INR', 'IT', 'CC-IT-01', 'Anita Sharma', 'Vikram Singh', '2025-10-05', 'Partially Received', 1, 'Workstation desktops'),
+('PO-014', 'VEN-002', '2025-10-07', 110000.00, 110000.00, 4, 27500.00, 19800.00, 129800.00, 'INR', 'Operations', 'CC-OPS-02', 'Ramesh Iyer', 'Vikram Singh', '2025-10-08', 'Partially Received', 1, 'Container shipping'),
+('PO-015', 'VEN-003', '2025-10-10', 420000.00, 420000.00, 70, 6000.00, 75600.00, 495600.00, 'INR', 'Manufacturing', 'CC-MFG-01', 'Suresh Kumar', 'Priya Nair', '2025-10-11', 'Partially Received', 1, 'Iron casting blocks'),
+-- 5 Price mismatches / Missing PO scenarios (PO-016 to PO-020)
+('PO-016', 'VEN-007', '2025-10-12', 175000.00, 175000.00, 1, 175000.00, 31500.00, 206500.00, 'INR', 'IT', 'CC-IT-01', 'Anita Sharma', 'Vikram Singh', '2025-10-13', 'Open', 1, 'Network upgrade services'),
+('PO-017', 'VEN-008', '2025-10-14', 65000.00, 65000.00, 10, 6500.00, 11700.00, 76700.00, 'INR', 'Admin', 'CC-ADM-01', 'Deepa Menon', 'Vikram Singh', '2025-10-15', 'Open', 1, 'Cleaning supplies bulk'),
+('PO-018', 'VEN-004', '2025-10-16', 38000.00, 38000.00, 25, 1520.00, 6840.00, 44840.00, 'INR', 'Admin', 'CC-ADM-01', 'Deepa Menon', 'Vikram Singh', '2025-10-17', 'Open', 1, 'Notebooks and pens'),
+('PO-019', 'VEN-005', '2025-10-18', 145000.00, 145000.00, 1, 145000.00, 26100.00, 171100.00, 'INR', 'Legal', 'CC-LGL-01', 'Arjun Reddy', 'Priya Nair', '2025-10-19', 'Open', 1, 'Compliance audit services'),
+('PO-020', 'VEN-006', '2025-10-20', 92000.00, 92000.00, 1, 92000.00, 16560.00, 108560.00, 'INR', 'Facilities', 'CC-FAC-01', 'Neha Gupta', 'Vikram Singh', '2025-10-21', 'Open', 1, 'Electrical wiring overhaul');
+
+-- ============================================================
+-- 3. GOODS RECEIPTS (20 GRNs)
+-- ============================================================
+INSERT INTO goods_receipts (grn_id, po_id, vendor_id, receipt_date, received_quantity, ordered_quantity, unit_price, amount, received_amount, received_by, warehouse_location, quality_check, status, notes) VALUES
+-- 10 Perfect matches
+('GRN-001', 'PO-001', 'VEN-001', '2025-09-08', 10, 10, 25000.00, 250000.00, 250000.00, 'Mahesh Patil', 'Mumbai-WH-01', 'Passed', 'Complete', 'All units received in good condition'),
+('GRN-002', 'PO-002', 'VEN-002', '2025-09-12', 5, 5, 36000.00, 180000.00, 180000.00, 'Ramesh Iyer', 'Chennai-WH-02', 'Passed', 'Complete', 'On-time delivery'),
+('GRN-003', 'PO-003', 'VEN-003', '2025-09-15', 100, 100, 5000.00, 500000.00, 500000.00, 'Suresh Kumar', 'Ahmedabad-WH-01', 'Passed', 'Complete', 'Quality verified'),
+('GRN-004', 'PO-004', 'VEN-004', '2025-09-17', 30, 30, 1500.00, 45000.00, 45000.00, 'Deepa Menon', 'Bengaluru-WH-01', 'Passed', 'Complete', 'Stationery received'),
+('GRN-005', 'PO-005', 'VEN-005', '2025-09-19', 1, 1, 320000.00, 320000.00, 320000.00, 'Arjun Reddy', 'Delhi-HQ', 'Passed', 'Complete', 'Service delivery confirmed'),
+('GRN-006', 'PO-006', 'VEN-006', '2025-09-22', 1, 1, 150000.00, 150000.00, 150000.00, 'Neha Gupta', 'Kolkata-WH-01', 'Passed', 'Complete', 'Maintenance done'),
+('GRN-007', 'PO-007', 'VEN-001', '2025-09-25', 5, 5, 19000.00, 95000.00, 95000.00, 'Mahesh Patil', 'Mumbai-WH-01', 'Passed', 'Complete', 'Licenses activated'),
+('GRN-008', 'PO-008', 'VEN-002', '2025-09-27', 3, 3, 25000.00, 75000.00, 75000.00, 'Ramesh Iyer', 'Bengaluru-WH-01', 'Passed', 'Complete', 'Delivery completed'),
+('GRN-009', 'PO-009', 'VEN-003', '2025-09-29', 50, 50, 5600.00, 280000.00, 280000.00, 'Suresh Kumar', 'Ahmedabad-WH-01', 'Passed', 'Complete', 'Sheets received'),
+('GRN-010', 'PO-010', 'VEN-004', '2025-10-02', 20, 20, 1100.00, 22000.00, 22000.00, 'Deepa Menon', 'Bengaluru-WH-01', 'Passed', 'Complete', 'Cartridges received'),
+-- 5 Quantity mismatches (received != ordered)
+('GRN-011', 'PO-011', 'VEN-005', '2025-10-05', 15, 20, 10000.00, 150000.00, 150000.00, 'Kavita Joshi', 'Delhi-HQ', 'Passed', 'Complete', 'Short delivery - 5 hours pending'),
+('GRN-012', 'PO-012', 'VEN-006', '2025-10-08', 35, 40, 2200.00, 77000.00, 77000.00, 'Neha Gupta', 'Kolkata-WH-01', 'Passed', 'Complete', '5 batteries damaged'),
+('GRN-013', 'PO-013', 'VEN-001', '2025-10-11', 10, 12, 30000.00, 300000.00, 300000.00, 'Mahesh Patil', 'Mumbai-WH-01', 'Passed', 'Complete', '2 desktops back-ordered'),
+('GRN-014', 'PO-014', 'VEN-002', '2025-10-14', 3, 4, 27500.00, 82500.00, 82500.00, 'Ramesh Iyer', 'Chennai-WH-02', 'Passed', 'Complete', '1 container delayed'),
+('GRN-015', 'PO-015', 'VEN-003', '2025-10-17', 60, 70, 6000.00, 360000.00, 360000.00, 'Suresh Kumar', 'Ahmedabad-WH-01', 'Passed', 'Complete', '10 blocks failed QC'),
+-- 5 Price/Other mismatch scenarios
+('GRN-016', 'PO-016', 'VEN-007', '2025-10-19', 1, 1, 175000.00, 175000.00, 175000.00, 'Anita Sharma', 'Delhi-HQ', 'Pending', 'Complete', 'Awaiting verification'),
+('GRN-017', 'PO-017', 'VEN-008', '2025-10-21', 10, 10, 6500.00, 65000.00, 65000.00, 'Deepa Menon', 'Mumbai-WH-01', 'Passed', 'Complete', 'Received'),
+('GRN-018', 'PO-018', 'VEN-004', '2025-10-23', 25, 25, 1520.00, 38000.00, 38000.00, 'Deepa Menon', 'Bengaluru-WH-01', 'Passed', 'Complete', 'Received'),
+('GRN-019', 'PO-019', 'VEN-005', '2025-10-25', 1, 1, 145000.00, 145000.00, 145000.00, 'Arjun Reddy', 'Delhi-HQ', 'Passed', 'Complete', 'Audit completed'),
+('GRN-020', 'PO-020', 'VEN-006', '2025-10-27', 1, 1, 92000.00, 92000.00, 92000.00, 'Neha Gupta', 'Kolkata-WH-01', 'Passed', 'Complete', 'Wiring done');
+
+-- ============================================================
+-- 4. INVOICES (20 invoices)
+-- ============================================================
+INSERT INTO invoices (invoice_id, vendor_id, invoice_number, date, invoice_date, received_date, due_date, amount, invoice_amount, quantity, unit_price, currency, tax_amount, total_amount, gstin, hsn_code, po_id, po_reference, grn_id, grn_reference, department, cost_center, payment_terms, payment_status, approval_status, approved_by, approval_limit_exceeded, line_item_count, description) VALUES
+-- 10 Perfect matches
+('INV-001', 'VEN-001', 'RE/2025/1001', '2025-09-10', '2025-09-10 10:30:00', '2025-09-10 14:00:00', '2025-10-10', 250000.00, 250000.00, 10, 25000.00, 'INR', 45000.00, 295000.00, '27AABCR1234M1Z5', '8471', 'PO-001', 'PO-001', 'GRN-001', 'GRN-001', 'IT', 'CC-IT-01', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Laptop procurement'),
+('INV-002', 'VEN-002', 'SLT/INV/2901', '2025-09-14', '2025-09-14 11:00:00', '2025-09-14 15:30:00', '2025-10-14', 180000.00, 180000.00, 5, 36000.00, 'INR', 32400.00, 212400.00, '33AAACS5678N1Z2', '9965', 'PO-002', 'PO-002', 'GRN-002', 'GRN-002', 'Operations', 'CC-OPS-02', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Freight services'),
+('INV-003', 'VEN-003', 'BSI-2025-456', '2025-09-17', '2025-09-17 09:15:00', '2025-09-17 12:00:00', '2025-10-17', 500000.00, 500000.00, 100, 5000.00, 'INR', 90000.00, 590000.00, '24AADCB9012P1Z8', '7214', 'PO-003', 'PO-003', 'GRN-003', 'GRN-003', 'Manufacturing', 'CC-MFG-01', 'Net 30', 'Paid', 'Approved', 'Priya Nair', FALSE, 1, 'Steel rods'),
+('INV-004', 'VEN-004', 'KOS/9821', '2025-09-19', '2025-09-19 14:00:00', '2025-09-19 16:30:00', '2025-10-19', 45000.00, 45000.00, 30, 1500.00, 'INR', 8100.00, 53100.00, '29AAFCK3456Q1Z1', '4820', 'PO-004', 'PO-004', 'GRN-004', 'GRN-004', 'Admin', 'CC-ADM-01', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Office stationery'),
+('INV-005', 'VEN-005', 'PSC/2025/Q3-11', '2025-09-21', '2025-09-21 10:00:00', '2025-09-21 13:00:00', '2025-10-21', 320000.00, 320000.00, 1, 320000.00, 'INR', 57600.00, 377600.00, '07AAGCP7890R1Z4', '9982', 'PO-005', 'PO-005', 'GRN-005', 'GRN-005', 'Legal', 'CC-LGL-01', 'Net 30', 'Unpaid', 'Approved', 'Priya Nair', FALSE, 1, 'Legal advisory Q3'),
+('INV-006', 'VEN-006', 'MPS/INV/3344', '2025-09-24', '2025-09-24 11:30:00', '2025-09-24 14:00:00', '2025-10-24', 150000.00, 150000.00, 1, 150000.00, 'INR', 27000.00, 177000.00, '19AAHCM2345S1Z6', '9987', 'PO-006', 'PO-006', 'GRN-006', 'GRN-006', 'Facilities', 'CC-FAC-01', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Generator maintenance'),
+('INV-007', 'VEN-001', 'RE/2025/1042', '2025-09-27', '2025-09-27 09:45:00', '2025-09-27 11:30:00', '2025-10-27', 95000.00, 95000.00, 5, 19000.00, 'INR', 17100.00, 112100.00, '27AABCR1234M1Z5', '8523', 'PO-007', 'PO-007', 'GRN-007', 'GRN-007', 'IT', 'CC-IT-01', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Software licenses'),
+('INV-008', 'VEN-002', 'SLT/INV/2945', '2025-09-29', '2025-09-29 10:00:00', '2025-09-29 13:00:00', '2025-10-29', 75000.00, 75000.00, 3, 25000.00, 'INR', 13500.00, 88500.00, '33AAACS5678N1Z2', '9965', 'PO-008', 'PO-008', 'GRN-008', 'GRN-008', 'Operations', 'CC-OPS-02', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Last mile delivery'),
+('INV-009', 'VEN-003', 'BSI-2025-491', '2025-10-01', '2025-10-01 11:00:00', '2025-10-01 14:00:00', '2025-10-31', 280000.00, 280000.00, 50, 5600.00, 'INR', 50400.00, 330400.00, '24AADCB9012P1Z8', '7210', 'PO-009', 'PO-009', 'GRN-009', 'GRN-009', 'Manufacturing', 'CC-MFG-01', 'Net 30', 'Unpaid', 'Approved', 'Priya Nair', FALSE, 1, 'Iron sheets'),
+('INV-010', 'VEN-004', 'KOS/9876', '2025-10-04', '2025-10-04 10:30:00', '2025-10-04 13:30:00', '2025-11-03', 22000.00, 22000.00, 20, 1100.00, 'INR', 3960.00, 25960.00, '29AAFCK3456Q1Z1', '8443', 'PO-010', 'PO-010', 'GRN-010', 'GRN-010', 'Admin', 'CC-ADM-01', 'Net 30', 'Paid', 'Approved', 'Vikram Singh', FALSE, 1, 'Printer cartridges'),
+-- 5 Quantity mismatch invoices (invoice claims FULL qty but GRN received less)
+('INV-011', 'VEN-005', 'PSC/2025/Q3-22', '2025-10-07', '2025-10-07 10:00:00', '2025-10-07 12:00:00', '2025-11-06', 200000.00, 200000.00, 20, 10000.00, 'INR', 36000.00, 236000.00, '07AAGCP7890R1Z4', '9982', 'PO-011', 'PO-011', 'GRN-011', 'GRN-011', 'HR', 'CC-HR-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'HR consultancy hours - 20'),
+('INV-012', 'VEN-006', 'MPS/INV/3401', '2025-10-10', '2025-10-10 11:00:00', '2025-10-10 14:00:00', '2025-11-09', 88000.00, 88000.00, 40, 2200.00, 'INR', 15840.00, 103840.00, '19AAHCM2345S1Z6', '8507', 'PO-012', 'PO-012', 'GRN-012', 'GRN-012', 'Facilities', 'CC-FAC-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'UPS batteries - 40'),
+('INV-013', 'VEN-001', 'RE/2025/1089', '2025-10-13', '2025-10-13 09:30:00', '2025-10-13 12:00:00', '2025-11-12', 360000.00, 360000.00, 12, 30000.00, 'INR', 64800.00, 424800.00, '27AABCR1234M1Z5', '8471', 'PO-013', 'PO-013', 'GRN-013', 'GRN-013', 'IT', 'CC-IT-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Workstation desktops - 12'),
+('INV-014', 'VEN-002', 'SLT/INV/2998', '2025-10-16', '2025-10-16 10:30:00', '2025-10-16 13:30:00', '2025-11-15', 110000.00, 110000.00, 4, 27500.00, 'INR', 19800.00, 129800.00, '33AAACS5678N1Z2', '9965', 'PO-014', 'PO-014', 'GRN-014', 'GRN-014', 'Operations', 'CC-OPS-02', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Container shipping - 4'),
+('INV-015', 'VEN-003', 'BSI-2025-528', '2025-10-19', '2025-10-19 11:00:00', '2025-10-19 14:30:00', '2025-11-18', 420000.00, 420000.00, 70, 6000.00, 'INR', 75600.00, 495600.00, '24AADCB9012P1Z8', '7214', 'PO-015', 'PO-015', 'GRN-015', 'GRN-015', 'Manufacturing', 'CC-MFG-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Iron casting blocks - 70'),
+-- 5 Price mismatch / Missing PO/GRN scenarios
+-- Price mismatch: invoice amount > PO amount by >5%
+('INV-016', 'VEN-007', 'QFT/INV/8801', '2025-10-21', '2025-10-21 10:00:00', '2025-10-21 13:00:00', '2025-11-20', 215000.00, 215000.00, 1, 215000.00, 'INR', 38700.00, 253700.00, '07AAICQ6789T1Z3', '9983', 'PO-016', 'PO-016', 'GRN-016', 'GRN-016', 'IT', 'CC-IT-01', 'Net 30', 'Unpaid', 'Pending', NULL, TRUE, 1, 'Network upgrade - PRICE OVERAGE'),
+-- Missing PO
+('INV-017', 'VEN-008', 'SGE/INV/5567', '2025-10-23', '2025-10-23 11:00:00', '2025-10-23 14:00:00', '2025-11-22', 89000.00, 89000.00, 12, 7416.67, 'INR', 16020.00, 105020.00, '27AAKCS4567U1Z9', '3401', NULL, NULL, NULL, NULL, 'Admin', 'CC-ADM-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Cleaning supplies - NO PO'),
+-- Missing GRN
+('INV-018', 'VEN-004', 'KOS/9921', '2025-10-25', '2025-10-25 10:30:00', '2025-10-25 13:30:00', '2025-11-24', 38000.00, 38000.00, 25, 1520.00, 'INR', 6840.00, 44840.00, '29AAFCK3456Q1Z1', '4820', 'PO-018', 'PO-018', NULL, NULL, 'Admin', 'CC-ADM-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Notebooks and pens - NO GRN'),
+-- Price overage on legal services
+('INV-019', 'VEN-005', 'PSC/2025/Q3-44', '2025-10-27', '2025-10-27 11:00:00', '2025-10-27 14:00:00', '2025-11-26', 168000.00, 168000.00, 1, 168000.00, 'INR', 30240.00, 198240.00, '07AAGCP7890R1Z4', '9982', 'PO-019', 'PO-019', 'GRN-019', 'GRN-019', 'Legal', 'CC-LGL-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Compliance audit - PRICE OVERAGE'),
+-- GSTIN mismatch on invoice
+('INV-020', 'VEN-006', 'MPS/INV/3478', '2025-10-29', '2025-10-29 10:00:00', '2025-10-29 13:00:00', '2025-11-28', 92000.00, 92000.00, 1, 92000.00, 'INR', 16560.00, 108560.00, '07AAHCM9999X1Z6', '8544', 'PO-020', 'PO-020', 'GRN-020', 'GRN-020', 'Facilities', 'CC-FAC-01', 'Net 30', 'Unpaid', 'Pending', NULL, FALSE, 1, 'Electrical wiring - GSTIN MISMATCH');
+
+-- ============================================================
+-- 5. AUDIT RESULTS (20 - all Pending/Open for mass_audit.js to pick up)
+-- ============================================================
+INSERT INTO audit_results (invoice_id, transaction_id, vendor_id, audit_type, risk_rating, risk_score, confidence, transaction_class, flags_detected, flag_count, explanation, recommended_action, citation, policy_version_applied, workflow_status, requires_hitl, data_masking_applied, re_audit_count) VALUES
+('INV-001', 'INV-001', 'VEN-001', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-002', 'INV-002', 'VEN-002', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-003', 'INV-003', 'VEN-003', 'Three-Way Match', 'Pending', 0, 0.00, 'A', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-004', 'INV-004', 'VEN-004', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-005', 'INV-005', 'VEN-005', 'Three-Way Match', 'Pending', 0, 0.00, 'A', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-006', 'INV-006', 'VEN-006', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-007', 'INV-007', 'VEN-001', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-008', 'INV-008', 'VEN-002', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-009', 'INV-009', 'VEN-003', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-010', 'INV-010', 'VEN-004', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-011', 'INV-011', 'VEN-005', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-012', 'INV-012', 'VEN-006', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-013', 'INV-013', 'VEN-001', 'Three-Way Match', 'Pending', 0, 0.00, 'A', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-014', 'INV-014', 'VEN-002', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-015', 'INV-015', 'VEN-003', 'Three-Way Match', 'Pending', 0, 0.00, 'A', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-016', 'INV-016', 'VEN-007', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-017', 'INV-017', 'VEN-008', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-018', 'INV-018', 'VEN-004', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-019', 'INV-019', 'VEN-005', 'Three-Way Match', 'Pending', 0, 0.00, 'B', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0),
+('INV-020', 'INV-020', 'VEN-006', 'Three-Way Match', 'Pending', 0, 0.00, 'C', '[]'::jsonb, 0, NULL, NULL, NULL, 1.0, 'Open', FALSE, FALSE, 0);
+
+-- ============================================================
+-- 6. COMPANY POLICIES (2)
+-- ============================================================
+INSERT INTO company_policies (policy_name, version_number, markdown_content, effective_date, is_active, updated_by) VALUES
+('General Procurement Policy', 1.0,
+'# General Procurement Policy v1.0
+
+## 1. Scope
+This policy applies to all procurement activities across departments excluding IT Services (covered separately).
+
+## 2. Three-Way Match Requirement
+All invoices above ₹25,000 MUST have:
+- A valid Purchase Order (PO)
+- A valid Goods Receipt Note (GRN)
+- Quantity and amount tolerance: ±5%
+
+## 3. Approval Limits
+| Role | Limit (INR) |
+|------|-------------|
+| Department Head | ₹1,00,000 |
+| Finance Manager | ₹5,00,000 |
+| CFO | ₹25,00,000 |
+| CEO | Above ₹25,00,000 |
+
+## 4. Vendor Requirements
+- All vendors must have a valid GSTIN and PAN.
+- KYC verification mandatory before first transaction.
+- Blacklisted vendors are PROHIBITED from any new transactions.
+
+## 5. GST Compliance
+- Invoice GSTIN must match vendor master GSTIN.
+- HSN codes are mandatory for all goods invoices.
+- Input Tax Credit (ITC) shall be claimed only on matched invoices.
+
+## 6. Duplicate Invoice Prevention
+Duplicate invoice numbers from the same vendor within 90 days are auto-flagged as CRITICAL.
+
+## 7. Payment Terms
+- Standard: Net 30
+- Early payment discounts (>2%) must be evaluated quarterly.
+
+## 8. Citations
+Aligned with: ISA 230, Companies Act 2013 Section 143, GST Act 2017.',
+'2025-01-01', TRUE, 'Compliance Team'),
+
+('IT Services Procurement Policy', 1.0,
+'# IT Services Procurement Policy v1.0
+
+## 1. Scope
+Applies to all software, hardware, cloud services, and IT consulting purchases.
+
+## 2. Special Approval Limits (IT)
+| Role | Limit (INR) |
+|------|-------------|
+| IT Manager | ₹2,00,000 |
+| CTO | ₹15,00,000 |
+| CEO | Above ₹15,00,000 |
+
+## 3. Software Licensing
+- All software licenses must be tracked in the asset register.
+- Renewals require 30-day prior PO.
+- SaaS subscriptions above ₹50,000/month require CTO approval.
+
+## 4. Vendor Due Diligence
+- IT vendors must provide ISO 27001 or SOC 2 certification.
+- Shell company risk score must be below 50.
+- Shared director/IP address with other vendors triggers automatic HITL review.
+
+## 5. Three-Way Match for IT
+- Tolerance for service-based invoices: ±10% (vs. 5% for goods).
+- License count must reconcile to deployment records.
+
+## 6. Data Privacy
+- All vendor PII must be masked before LLM processing.
+- DPDP Act 2023 compliance is mandatory.
+
+## 7. Citations
+Aligned with: ISA 315, DPDP Act 2023, IT Act 2000.',
+'2025-01-01', TRUE, 'IT Governance Committee');
+
+-- ============================================================
+-- DONE: Seed data v3.0 ready for AuditIQ
+-- ============================================================

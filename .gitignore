@@ -1,0 +1,94 @@
+# =========================
+# Node.js
+# =========================
+node_modules/
+**/node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+out/
+coverage/
+**/dist/
+**/build/
+
+# =========================
+# Vite / React
+# =========================
+.vite/
+.cache/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Python (you have some scripts)
+# =========================
+__pycache__/
+*.pyc
+
+# =========================
+# Temporary / Scratch
+# =========================
+scratch/
+tmp/
+temp/
+
+# =========================
+# Data files (optional - be careful)
+# =========================
+
+
+# If you WANT to keep sample CSVs, comment above and use:
+# !demo_invoices.csv
+# !test_upload.csv
+# !mock_audit_data.csv
+
+# =========================
+# PDFs / Generated files
+# =========================
+*.pdf
+
+# =========================
+# Database / local artifacts
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# Misc
+# =========================
+*.zip
+*.tar
+*.gz

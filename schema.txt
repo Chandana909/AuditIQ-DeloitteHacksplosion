@@ -1,0 +1,462 @@
+-- ============================================================
+-- AUDITIQ COMPLETE SCHEMA — v3.0
+-- Evolved from v2 draft with backward compatibility to old Neon schema
+-- Includes: ABC classification, data masking tracking,
+--           tax intelligence, duplicate clusters, re-audit support
+-- ============================================================
+
+-- Clean slate (careful in production!)
+DROP TABLE IF EXISTS duplicate_clusters CASCADE;
+DROP TABLE IF EXISTS tax_intelligence CASCADE;
+DROP TABLE IF EXISTS agent_activity_logs CASCADE;
+DROP TABLE IF EXISTS ingestion_jobs CASCADE;
+DROP TABLE IF EXISTS audit_results CASCADE;
+DROP TABLE IF EXISTS approval_logs CASCADE;
+DROP TABLE IF EXISTS goods_receipts CASCADE;
+DROP TABLE IF EXISTS purchase_orders CASCADE;
+DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS vendor_master CASCADE;
+DROP TABLE IF EXISTS company_policies CASCADE;
+DROP SEQUENCE IF EXISTS escalation_id_seq;
+
+-- ============================================================
+-- 1. VENDOR MASTER
+-- Backward compat: keeps vendor_id, vendor_name, official_gstin,
+--   blacklist_status (renamed from blacklisted for old schema compat)
+-- ============================================================
+CREATE TABLE vendor_master (
+  vendor_id         VARCHAR(20) PRIMARY KEY,
+  vendor_name       VARCHAR(200) NOT NULL,
+  official_gstin    VARCHAR(15),
+  pan_number        VARCHAR(10),
+  vendor_category   VARCHAR(50),             -- 'Logistics','IT Services','Raw Materials','MRO','Professional Services','Utilities'
+  registered_address TEXT,                    -- backward compat with old schema
+  city              VARCHAR(100),
+  state             VARCHAR(100),
+  country           VARCHAR(50) DEFAULT 'India',
+  bank_account_number VARCHAR(50),
+  bank_ifsc         VARCHAR(20),
+  bank_verified     BOOLEAN DEFAULT FALSE,
+  gstin_status      VARCHAR(20) DEFAULT 'Unverified',  -- 'Active','Mismatch','Suspended','Missing','Invalid','Unverified'
+  kyc_status        VARCHAR(20) DEFAULT 'Pending',     -- 'Verified','Pending','Expired','Rejected'
+  kyc_document_url  TEXT,
+  kyc_verified_at   TIMESTAMP,
+  risk_score_numeric INTEGER DEFAULT 0,
+  risk_rating       VARCHAR(20),             -- backward compat with old schema
+  shell_risk_score  INTEGER DEFAULT 0,       -- 0-100, for collusion detection
+  shared_director   VARCHAR(200),            -- director name if shared with other vendors
+  shared_ip_address VARCHAR(45),             -- IP if shared with other vendors
+  last_audit_date   DATE,
+  is_active         BOOLEAN DEFAULT TRUE,
+  blacklisted       BOOLEAN DEFAULT FALSE,
+  blacklist_status  BOOLEAN DEFAULT FALSE,   -- backward compat alias
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 2. INVOICES
+-- Backward compat: keeps invoice_id, date, vendor_id, invoice_number,
+--   po_id, grn_id, invoice_amount, gstin
+-- ============================================================
+CREATE TABLE invoices (
+  invoice_id        VARCHAR(20) PRIMARY KEY,
+  vendor_id         VARCHAR(20) REFERENCES vendor_master(vendor_id),
+  invoice_number    VARCHAR(50),
+  date              DATE,                         -- backward compat (old schema used 'date')
+  invoice_date      TIMESTAMP,                    -- more precise timestamp
+  received_date     TIMESTAMP,
+  due_date          DATE,
+  amount            NUMERIC(15,2),
+  invoice_amount    NUMERIC(15,2),                -- backward compat alias
+  currency          VARCHAR(10) DEFAULT 'INR',
+  tax_amount        NUMERIC(15,2) DEFAULT 0,
+  total_amount      NUMERIC(15,2),
+  gstin             VARCHAR(15),                  -- GSTIN on invoice
+  hsn_code          VARCHAR(20),                  -- for tax intelligence
+  po_id             VARCHAR(20),                  -- backward compat (was po_reference in v2)
+  po_reference      VARCHAR(20),                  -- v2 name
+  grn_id            VARCHAR(20),                  -- backward compat (was grn_reference in v2)
+  grn_reference     VARCHAR(20),                  -- v2 name
+  department        VARCHAR(100),
+  cost_center       VARCHAR(50),
+  payment_terms     VARCHAR(50),                  -- 'Net 30','Net 60','Immediate'
+  payment_status    VARCHAR(20) DEFAULT 'Unpaid', -- 'Paid','Unpaid','Partial','Overdue'
+  approval_status   VARCHAR(30) DEFAULT 'Pending',
+  approved_by       VARCHAR(100),
+  approval_limit_exceeded BOOLEAN DEFAULT FALSE,
+  line_item_count   INTEGER DEFAULT 1,
+  description       TEXT,
+  record_hash       VARCHAR(64),                  -- idempotency
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE UNIQUE INDEX idx_invoice_hash ON invoices(record_hash) WHERE record_hash IS NOT NULL;
+
+-- ============================================================
+-- 3. PURCHASE ORDERS
+-- Backward compat: keeps po_id, vendor_id, po_date, po_amount, status
+-- ============================================================
+CREATE TABLE purchase_orders (
+  po_id             VARCHAR(20) PRIMARY KEY,
+  vendor_id         VARCHAR(20) REFERENCES vendor_master(vendor_id),
+  po_date           DATE NOT NULL,
+  amount            NUMERIC(15,2),
+  po_amount         NUMERIC(15,2),                -- backward compat
+  tax_amount        NUMERIC(15,2) DEFAULT 0,
+  total_amount      NUMERIC(15,2),
+  currency          VARCHAR(10) DEFAULT 'INR',
+  department        VARCHAR(100),
+  cost_center       VARCHAR(50),
+  requester         VARCHAR(100),
+  approver          VARCHAR(100),
+  approval_date     DATE,
+  status            VARCHAR(20) DEFAULT 'Open',   -- 'Open','Partially Received','Closed','Cancelled'
+  line_item_count   INTEGER DEFAULT 1,
+  description       TEXT,
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 4. GOODS RECEIPTS
+-- Backward compat: keeps grn_id, po_id, receipt_date, received_amount
+-- ============================================================
+CREATE TABLE goods_receipts (
+  grn_id            VARCHAR(20) PRIMARY KEY,
+  po_id             VARCHAR(20) REFERENCES purchase_orders(po_id),
+  vendor_id         VARCHAR(20) REFERENCES vendor_master(vendor_id),
+  receipt_date      DATE NOT NULL,
+  received_quantity INTEGER,
+  ordered_quantity  INTEGER,
+  amount            NUMERIC(15,2),
+  received_amount   NUMERIC(15,2),                -- backward compat
+  received_by       VARCHAR(100),
+  warehouse_location VARCHAR(100),
+  quality_check     VARCHAR(20) DEFAULT 'Passed', -- 'Passed','Failed','Pending','Waived'
+  status            VARCHAR(20) DEFAULT 'Complete',
+  notes             TEXT,
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 5. APPROVAL LOGS (backward compat with old schema)
+-- ============================================================
+CREATE TABLE approval_logs (
+  log_id            VARCHAR(20) PRIMARY KEY,
+  transaction_id    VARCHAR(20),
+  approver_name     VARCHAR(100),
+  approver_role     VARCHAR(100),
+  timestamp         TIMESTAMP,
+  action_taken      VARCHAR(50),
+  amount_limit      NUMERIC(15,2)
+);
+
+-- ============================================================
+-- 6. AUDIT RESULTS — the core table
+-- Backward compat: keeps invoice_id as PK reference,
+--   risk_rating, flags_detected, explanation, recommended_action,
+--   citation, policy_version_applied, session_id
+-- NEW: transaction_class, data_masking_applied, re_audit_count
+-- ============================================================
+CREATE SEQUENCE escalation_id_seq START 1001;
+
+CREATE TABLE audit_results (
+  id                    SERIAL,
+  invoice_id            VARCHAR(20) PRIMARY KEY,   -- backward compat (same as transaction_id)
+  transaction_id        VARCHAR(20),               -- v2 alias
+  vendor_id             VARCHAR(20) REFERENCES vendor_master(vendor_id),
+  audit_type            VARCHAR(50),               -- 'Invoice Audit','PO Audit','Vendor Audit','Three-Way Match'
+  risk_rating           VARCHAR(20),               -- 'LOW','MEDIUM','HIGH','CRITICAL'
+  risk_score            INTEGER DEFAULT 0,
+  confidence            NUMERIC(3,2) DEFAULT 0.85,
+  transaction_class     CHAR(1) DEFAULT 'C',       -- NEW: 'A','B','C' (ABC classification)
+  flags_detected        JSONB,                     -- Array of flag objects
+  flag_count            INTEGER DEFAULT 0,
+  explanation           TEXT,                      -- Plain-English explanation
+  recommended_action    TEXT,
+  citation              TEXT,                      -- backward compat (was JSONB in v2, TEXT in old)
+  policy_version_applied NUMERIC,                  -- backward compat
+  workflow_status       VARCHAR(50) DEFAULT 'Open',
+  escalation_id         VARCHAR(20),
+  assigned_to           VARCHAR(100),
+  reviewed_by           VARCHAR(100),
+  reviewed_at           TIMESTAMP,
+  review_notes          TEXT,
+  is_valid_flag         BOOLEAN,
+  requires_hitl         BOOLEAN DEFAULT FALSE,
+  hitl_reason           TEXT,
+  resolution_summary    TEXT,
+  data_masking_applied  BOOLEAN DEFAULT FALSE,     -- NEW: was PII masked before LLM?
+  re_audit_count        INTEGER DEFAULT 0,         -- NEW: how many times re-audited
+  session_id            VARCHAR(100),              -- backward compat
+  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 7. COMPANY POLICIES
+-- Backward compat: keeps policy_id, markdown_content, version_number, is_active
+-- ============================================================
+CREATE TABLE company_policies (
+  policy_id         SERIAL PRIMARY KEY,
+  policy_name       VARCHAR(200),
+  version_number    NUMERIC,                       -- backward compat (was version in v2)
+  markdown_content  TEXT,
+  effective_date    DATE,
+  is_active         BOOLEAN DEFAULT TRUE,          -- backward compat
+  last_updated      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_by        VARCHAR(100),
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 8. INGESTION JOBS
+-- ============================================================
+CREATE TABLE ingestion_jobs (
+  job_id            SERIAL PRIMARY KEY,
+  file_name         VARCHAR(255) NOT NULL,
+  connector_type    VARCHAR(50) NOT NULL,          -- 'Invoice','PO','GRN','Approval','Vendor'
+  source_system     VARCHAR(100),                  -- 'SAP','Tally','Manual Upload','API','SFTP','OCR'
+  status            VARCHAR(20) DEFAULT 'Pending', -- 'Pending','Processing','Validating','Complete','Failed','Partial'
+  total_records     INTEGER DEFAULT 0,
+  success_count     INTEGER DEFAULT 0,
+  error_count       INTEGER DEFAULT 0,
+  duplicate_count   INTEGER DEFAULT 0,
+  validation_errors JSONB,
+  file_size_kb      INTEGER,
+  file_hash         VARCHAR(64),
+  uploaded_by       VARCHAR(100),
+  processing_time_ms INTEGER,
+  uploaded_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  completed_at      TIMESTAMP
+);
+
+-- ============================================================
+-- 9. AGENT ACTIVITY LOGS (for ISA 230 traceability)
+-- ============================================================
+CREATE TABLE agent_activity_logs (
+  log_id            SERIAL PRIMARY KEY,
+  agent_name        VARCHAR(100),                  -- 'Data Extractor','Math Agent','Vendor Intel','Duplicate Agent','Challenger','Risk Scorer'
+  action_type       VARCHAR(100),                  -- 'Invoice Scanned','Flag Generated','Three-Way Match','HITL Escalation'
+  entity_reference  VARCHAR(50),                   -- 'INV-1001','PO-2001'
+  entity_type       VARCHAR(30),                   -- 'invoice','po','grn','vendor'
+  details           TEXT,
+  result_summary    VARCHAR(200),
+  tokens_used       INTEGER,
+  latency_ms        INTEGER,
+  status            VARCHAR(20) DEFAULT 'Success', -- 'Success','Failed','Timeout'
+  session_id        VARCHAR(100),
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 10. TAX INTELLIGENCE (NEW — for Proactive Tax Intelligence)
+-- ============================================================
+CREATE TABLE tax_intelligence (
+  id                SERIAL PRIMARY KEY,
+  intelligence_type VARCHAR(50) NOT NULL,          -- 'MISSED_ITC','VOLUME_DISCOUNT','HSN_MISMATCH'
+  vendor_id         VARCHAR(20) REFERENCES vendor_master(vendor_id),
+  invoice_id        VARCHAR(20),
+  quarter           VARCHAR(10),                   -- 'Q1-2025','Q2-2025'
+  amount            NUMERIC(15,2) DEFAULT 0,       -- potential savings/credit amount
+  details           TEXT,
+  status            VARCHAR(20) DEFAULT 'Open',    -- 'Open','Claimed','Dismissed'
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 11. DUPLICATE CLUSTERS (NEW — for Anomaly Playground)
+-- ============================================================
+CREATE TABLE duplicate_clusters (
+  cluster_id        SERIAL PRIMARY KEY,
+  cluster_hash      VARCHAR(64),                   -- hash of the duplicate group
+  invoice_ids       JSONB,                         -- array of invoice_id strings
+  vendor_ids        JSONB,                         -- array of vendor_id strings
+  total_amount      NUMERIC(15,2) DEFAULT 0,
+  invoice_count     INTEGER DEFAULT 0,
+  date_range        VARCHAR(50),                   -- 'Jan 2025 - Mar 2025'
+  detected_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status            VARCHAR(20) DEFAULT 'Open'     -- 'Open','Resolved','False Positive'
+);
+
+-- ============================================================
+-- 12. USEFUL VIEWS
+-- ============================================================
+
+-- Three-way match view (for Audit Workspace)
+CREATE OR REPLACE VIEW v_three_way_match AS
+SELECT
+  i.invoice_id,
+  i.vendor_id,
+  vm.vendor_name,
+  COALESCE(i.amount, i.invoice_amount) AS invoice_amount,
+  COALESCE(po.amount, po.po_amount) AS po_amount,
+  COALESCE(gr.amount, gr.received_amount) AS grn_amount,
+  COALESCE(i.po_id, i.po_reference) AS po_reference,
+  COALESCE(i.grn_id, i.grn_reference) AS grn_reference,
+  CASE
+    WHEN po.po_id IS NULL THEN 'Missing PO'
+    WHEN gr.grn_id IS NULL THEN 'Missing GRN'
+    WHEN ABS(COALESCE(i.amount, i.invoice_amount, 0) - COALESCE(po.amount, po.po_amount, 0))
+         / NULLIF(COALESCE(po.amount, po.po_amount, 0), 0) > 0.05 THEN 'Amount Mismatch'
+    WHEN ABS(COALESCE(po.amount, po.po_amount, 0) - COALESCE(gr.amount, gr.received_amount, 0))
+         / NULLIF(COALESCE(po.amount, po.po_amount, 0), 0) > 0.05 THEN 'GRN Mismatch'
+    ELSE 'Matched'
+  END AS match_status
+FROM invoices i
+LEFT JOIN purchase_orders po ON COALESCE(i.po_id, i.po_reference) = po.po_id
+LEFT JOIN goods_receipts gr ON COALESCE(i.grn_id, i.grn_reference) = gr.grn_id
+LEFT JOIN vendor_master vm ON i.vendor_id = vm.vendor_id;
+
+-- Daily audit trends (for Dashboard line chart)
+CREATE OR REPLACE VIEW v_daily_audit_trends AS
+SELECT
+  DATE_TRUNC('day', created_at)::date AS audit_date,
+  COUNT(*) AS total_audits,
+  COUNT(*) FILTER (WHERE risk_rating = 'CRITICAL') AS critical,
+  COUNT(*) FILTER (WHERE risk_rating = 'HIGH') AS high,
+  COUNT(*) FILTER (WHERE risk_rating = 'MEDIUM') AS medium,
+  COUNT(*) FILTER (WHERE risk_rating = 'LOW') AS low,
+  COUNT(*) FILTER (WHERE workflow_status = 'Approved') AS approved,
+  COUNT(*) FILTER (WHERE workflow_status = 'Pending Review') AS pending,
+  ROUND(AVG(risk_score), 1) AS avg_risk_score
+FROM audit_results
+GROUP BY 1 ORDER BY 1;
+
+-- Vendor risk heatmap (for Dashboard scatter plot + Vendor Intelligence)
+CREATE OR REPLACE VIEW v_vendor_risk_heatmap AS
+SELECT
+  vm.vendor_id,
+  vm.vendor_name,
+  vm.vendor_category,
+  vm.gstin_status,
+  vm.kyc_status,
+  vm.blacklisted,
+  vm.shell_risk_score,
+  vm.shared_director,
+  vm.shared_ip_address,
+  COUNT(ar.id) AS total_audits,
+  COUNT(ar.id) FILTER (WHERE ar.risk_rating IN ('HIGH','CRITICAL')) AS high_risk_count,
+  ROUND(AVG(ar.risk_score), 1) AS avg_risk_score,
+  MAX(ar.created_at) AS last_audit_at,
+  SUM(COALESCE(i.total_amount, i.amount, i.invoice_amount, 0)) AS total_invoice_value
+FROM vendor_master vm
+LEFT JOIN audit_results ar ON vm.vendor_id = ar.vendor_id
+LEFT JOIN invoices i ON vm.vendor_id = i.vendor_id
+GROUP BY vm.vendor_id, vm.vendor_name, vm.vendor_category, vm.gstin_status,
+         vm.kyc_status, vm.blacklisted, vm.shell_risk_score, vm.shared_director, vm.shared_ip_address;
+
+-- Rule violation feed (for analytics)
+CREATE OR REPLACE VIEW v_rule_violation_feed AS
+SELECT
+  flag->>'flagName' AS rule_name,
+  flag->>'severity' AS risk_level,
+  flag->>'category' AS category,
+  COUNT(*) AS trigger_count,
+  COUNT(DISTINCT ar.vendor_id) AS vendors_affected,
+  MAX(ar.created_at) AS last_triggered
+FROM audit_results ar, jsonb_array_elements(ar.flags_detected) AS flag
+WHERE ar.flags_detected IS NOT NULL AND ar.flags_detected != 'null'::jsonb
+GROUP BY flag->>'flagName', flag->>'severity', flag->>'category'
+ORDER BY trigger_count DESC;
+
+-- ABC distribution (for Dashboard donut chart)
+CREATE OR REPLACE VIEW v_abc_distribution AS
+SELECT
+  transaction_class,
+  COUNT(*) AS count,
+  SUM(COALESCE(i.amount, i.invoice_amount, 0)) AS total_value,
+  ROUND(AVG(ar.risk_score), 1) AS avg_risk_score
+FROM audit_results ar
+LEFT JOIN invoices i ON ar.invoice_id = i.invoice_id
+GROUP BY transaction_class;
+
+-- Ingestion pipeline summary
+CREATE OR REPLACE VIEW v_ingestion_summary AS
+SELECT
+  connector_type,
+  COUNT(*) AS total_jobs,
+  SUM(total_records) AS total_records,
+  SUM(success_count) AS total_success,
+  SUM(error_count) AS total_errors,
+  SUM(duplicate_count) AS total_duplicates,
+  ROUND(100.0 * SUM(success_count) / NULLIF(SUM(total_records), 0), 1) AS success_rate,
+  MAX(uploaded_at) AS last_upload
+FROM ingestion_jobs
+GROUP BY connector_type;
+
+-- Missed ITC view (for Tax Intelligence)
+CREATE OR REPLACE VIEW v_missed_itc AS
+SELECT
+  i.invoice_id,
+  i.vendor_id,
+  vm.vendor_name,
+  i.gstin AS invoice_gstin,
+  vm.official_gstin,
+  i.tax_amount AS missed_itc_amount,
+  i.hsn_code,
+  COALESCE(i.date, i.invoice_date::date) AS invoice_date
+FROM invoices i
+JOIN vendor_master vm ON i.vendor_id = vm.vendor_id
+WHERE i.gstin IS NOT NULL
+  AND vm.official_gstin IS NOT NULL
+  AND i.gstin != vm.official_gstin;
+
+-- Volume discount opportunities (for Tax Intelligence)
+CREATE OR REPLACE VIEW v_volume_discounts AS
+SELECT
+  i.vendor_id,
+  vm.vendor_name,
+  vm.vendor_category,
+  DATE_TRUNC('quarter', COALESCE(i.invoice_date, i.date::timestamp)) AS quarter,
+  COUNT(*) AS invoice_count,
+  SUM(COALESCE(i.amount, i.invoice_amount, 0)) AS total_spend,
+  ROUND(SUM(COALESCE(i.amount, i.invoice_amount, 0)) * 0.04, 2) AS potential_savings_4pct
+FROM invoices i
+JOIN vendor_master vm ON i.vendor_id = vm.vendor_id
+GROUP BY i.vendor_id, vm.vendor_name, vm.vendor_category,
+         DATE_TRUNC('quarter', COALESCE(i.invoice_date, i.date::timestamp))
+HAVING SUM(COALESCE(i.amount, i.invoice_amount, 0)) > 1000000;
+
+-- ============================================================
+-- 13. STORED PROCEDURE — Dynamic ingest
+-- ============================================================
+CREATE OR REPLACE FUNCTION ingest_data(
+  target_table TEXT,
+  data JSONB
+) RETURNS TEXT AS
+$$
+DECLARE
+  row_data JSONB;
+  cols TEXT;
+  vals TEXT;
+  row_count INTEGER := 0;
+BEGIN
+  FOR row_data IN SELECT * FROM jsonb_array_elements(data) LOOP
+    SELECT string_agg(key, ', '), string_agg(quote_literal(value), ', ')
+    INTO cols, vals
+    FROM jsonb_each_text(row_data);
+
+    EXECUTE format('INSERT INTO %I (%s) VALUES (%s) ON CONFLICT DO NOTHING', target_table, cols, vals);
+    row_count := row_count + 1;
+  END LOOP;
+  RETURN 'OK: ' || row_count || ' rows processed into ' || target_table;
+END;
+$$
+LANGUAGE plpgsql;
+
+-- ============================================================
+-- 14. INDEXES for performance
+-- ============================================================
+CREATE INDEX idx_audit_results_risk ON audit_results(risk_rating);
+CREATE INDEX idx_audit_results_class ON audit_results(transaction_class);
+CREATE INDEX idx_audit_results_status ON audit_results(workflow_status);
+CREATE INDEX idx_audit_results_vendor ON audit_results(vendor_id);
+CREATE INDEX idx_invoices_vendor ON invoices(vendor_id);
+CREATE INDEX idx_invoices_date ON invoices(date);
+CREATE INDEX idx_agent_logs_created ON agent_activity_logs(created_at);
+CREATE INDEX idx_agent_logs_entity ON agent_activity_logs(entity_reference);
+
+-- ============================================================
+-- DONE. Schema v3 ready.
+-- ============================================================

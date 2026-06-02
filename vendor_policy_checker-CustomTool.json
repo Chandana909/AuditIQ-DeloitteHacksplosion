@@ -1,0 +1,9 @@
+{
+  "name": "vendor_policy_checker",
+  "description": "Use this tool to look up a vendor in the Vendor Master database to check if they hold a high risk rating or if they are actively blacklisted by the organization.",
+  "color": "linear-gradient(rgb(204,215,228), rgb(149,206,36))",
+  "iconSrc": "",
+  "schema": "[{\"id\":1,\"property\":\"blacklist_status\",\"type\":\"string\",\"description\":\"The blacklist status from the Vendor_Master table (e.g., 'True', 'False', 'Yes', 'No')\",\"required\":true},{\"id\":2,\"property\":\"risk_rating\",\"type\":\"string\",\"description\":\"The risk rating from the Vendor_Master table (e.g., 'High', 'Medium', 'Low')\",\"required\":true},{\"id\":3,\"property\":\"vendor_name\",\"type\":\"string\",\"description\":\"The name of the vendor from the Vendor_Master table\",\"required\":true}]",
+  "func": "let flags = [];\n\n// Convert inputs to lowercase strings to handle variations like \"True\", \"TRUE\", \"yes\" safely\nlet status = String($blacklist_status).toLowerCase();\nlet risk = String($risk_rating).toLowerCase();\n\n// Check Blacklist Status\nif (status === \"true\" || status === \"yes\" || status === \"blacklisted\" || status === \"1\") {\n    flags.push(`CRITICAL: Vendor ${$vendor_name} is actively BLACKLISTED in the system.`);\n}\n\n// Check Risk Rating\nif (risk === \"high\") {\n    flags.push(`WARNING: Vendor ${$vendor_name} currently holds a HIGH risk rating.`);\n}\n\n// Final Evaluation (Must return a string)\nif (flags.length > 0) {\n    return flags.join(\" | \");\n} else {\n    return `PASS: Vendor ${$vendor_name} is not blacklisted and their risk rating is acceptable.`;\n}",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

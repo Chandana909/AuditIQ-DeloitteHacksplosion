@@ -1,0 +1,9 @@
+{
+  "name": "risk_scoring_calculator",
+  "description": "Always use this tool at the very end of your audit. Count the number of critical, high, and medium flags you found, and pass them to this tool to calculate the final Risk Score and get the routing recommendation.",
+  "color": "linear-gradient(rgb(22,169,217), rgb(74,242,180))",
+  "iconSrc": "",
+  "schema": "[{\"id\":1,\"property\":\"critical_flags\",\"type\":\"number\",\"description\":\"Count of critical risks found (e.g., Blacklisted vendor, Exa news of fraud, Duplicate invoice)\",\"required\":true},{\"id\":2,\"property\":\"high_flags\",\"type\":\"number\",\"description\":\"Count of high risks found (e.g., Three-way match failure, GST mismatch, Approval limit violation)\",\"required\":true},{\"id\":3,\"property\":\"medium_flags\",\"type\":\"number\",\"description\":\"Count of medium/fuzzy risks found (e.g., Round number anomalies, weekend timing)\",\"required\":true}]",
+  "func": "// Calculate weighted score\nlet score = ($critical_flags * 50) + ($high_flags * 25) + ($medium_flags * 10);\n\n// Cap the score at 100\nif (score > 100) score = 100;\n\nlet routing_decision = \"\";\n\n// The Conditional Escalation Logic\nif (score >= 75) {\n    routing_decision = \"ACTION: ESCALATE TO HITL (Human-in-the-Loop) REVIEW QUEUE. Transaction is blocked.\";\n} else if (score >= 40) {\n    routing_decision = \"ACTION: ROUTE TO QA SAMPLING. High risk detected.\";\n} else if (score > 0) {\n    routing_decision = \"ACTION: AUTO-CLASSIFY EXCEPTION. Medium risk detected.\";\n} else {\n    routing_decision = \"ACTION: AUTO-APPROVE. No risks detected.\";\n}\n\nreturn `CALCULATED RISK SCORE: ${score}/100. ${routing_decision}`;",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

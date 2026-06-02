@@ -1,0 +1,81 @@
+DATABASE SCHEMA EXPORT
+========================
+
+
+TABLE: approval_logs
+--------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+log_id                    | character varying | NO         | NULL
+transaction_id            | character varying | YES        | NULL
+approver_name             | character varying | YES        | NULL
+approver_role             | character varying | YES        | NULL
+timestamp                 | timestamp without time zone | YES        | NULL
+action_taken              | character varying | YES        | NULL
+amount_limit              | numeric         | YES        | NULL
+
+TABLE: audit_results
+--------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+invoice_id                | character varying | NO         | NULL
+risk_rating               | character varying | YES        | NULL
+flags_detected            | jsonb           | YES        | NULL
+explanation               | text            | YES        | NULL
+recommended_action        | text            | YES        | NULL
+citation                  | text            | YES        | NULL
+policy_version_applied    | numeric         | YES        | NULL
+session_id                | character varying | YES        | NULL
+
+TABLE: company_policies
+-----------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+policy_id                 | integer         | NO         | nextval('company_policies_policy_id_seq'::regclass)
+markdown_content          | text            | YES        | NULL
+version_number            | numeric         | YES        | NULL
+is_active                 | boolean         | YES        | NULL
+created_at                | timestamp without time zone | YES        | CURRENT_TIMESTAMP
+
+TABLE: goods_receipts
+---------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+grn_id                    | character varying | NO         | NULL
+po_id                     | character varying | YES        | NULL
+receipt_date              | date            | YES        | NULL
+received_amount           | numeric         | YES        | NULL
+
+TABLE: invoices
+---------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+invoice_id                | character varying | NO         | NULL
+date                      | date            | YES        | NULL
+vendor_id                 | character varying | YES        | NULL
+invoice_number            | character varying | YES        | NULL
+po_id                     | character varying | YES        | NULL
+grn_id                    | character varying | YES        | NULL
+invoice_amount            | numeric         | YES        | NULL
+gstin                     | character varying | YES        | NULL
+
+TABLE: purchase_orders
+----------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+po_id                     | character varying | NO         | NULL
+vendor_id                 | character varying | YES        | NULL
+po_date                   | date            | YES        | NULL
+po_amount                 | numeric         | YES        | NULL
+status                    | character varying | YES        | NULL
+
+TABLE: vendor_master
+--------------------
+COLUMN                    | TYPE            | NULLABLE   | DEFAULT
+----------------------------------------------------------------------
+vendor_id                 | character varying | NO         | NULL
+vendor_name               | character varying | YES        | NULL
+official_gstin            | character varying | YES        | NULL
+registered_address        | text            | YES        | NULL
+risk_rating               | character varying | YES        | NULL
+blacklist_status          | boolean         | YES        | NULL

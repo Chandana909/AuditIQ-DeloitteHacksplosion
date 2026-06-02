@@ -1,0 +1,3575 @@
+{
+  "nodes": [
+    {
+      "id": "startAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 72.01333852458761,
+        "y": -69.99806177425705
+      },
+      "data": {
+        "id": "startAgentflow_0",
+        "label": "Start",
+        "version": 1.1,
+        "name": "startAgentflow",
+        "type": "Start",
+        "color": "#7EE787",
+        "hideInput": true,
+        "baseClasses": [
+          "Start"
+        ],
+        "category": "Agent Flows",
+        "description": "Starting point of the agentflow",
+        "inputParams": [
+          {
+            "label": "Input Type",
+            "name": "startInputType",
+            "type": "options",
+            "options": [
+              {
+                "label": "Chat Input",
+                "name": "chatInput",
+                "description": "Start the conversation with chat input"
+              },
+              {
+                "label": "Form Input",
+                "name": "formInput",
+                "description": "Start the workflow with form inputs"
+              }
+            ],
+            "default": "chatInput",
+            "id": "startAgentflow_0-input-startInputType-options",
+            "display": true
+          },
+          {
+            "label": "Form Title",
+            "name": "formTitle",
+            "type": "string",
+            "placeholder": "Please Fill Out The Form",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "id": "startAgentflow_0-input-formTitle-string",
+            "display": false
+          },
+          {
+            "label": "Form Description",
+            "name": "formDescription",
+            "type": "string",
+            "placeholder": "Complete all fields below to continue",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "id": "startAgentflow_0-input-formDescription-string",
+            "display": false
+          },
+          {
+            "label": "Form Input Types",
+            "name": "formInputTypes",
+            "type": "array",
+            "description": "Specify the type of form input",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "array": [
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  },
+                  {
+                    "label": "Options",
+                    "name": "options"
+                  }
+                ],
+                "default": "string"
+              },
+              {
+                "label": "Label",
+                "name": "label",
+                "type": "string",
+                "placeholder": "Label for the input"
+              },
+              {
+                "label": "Variable Name",
+                "name": "name",
+                "type": "string",
+                "placeholder": "Variable name for the input (must be camel case)"
+              },
+              {
+                "label": "Add Options",
+                "name": "addOptions",
+                "type": "array",
+                "show": {
+                  "formInputTypes[$index].type": "options"
+                },
+                "array": [
+                  {
+                    "label": "Option",
+                    "name": "option",
+                    "type": "string"
+                  }
+                ]
+              }
+            ],
+            "id": "startAgentflow_0-input-formInputTypes-array",
+            "display": false
+          },
+          {
+            "label": "Ephemeral Memory",
+            "name": "startEphemeralMemory",
+            "type": "boolean",
+            "description": "Start fresh for every execution without past chat history",
+            "optional": true,
+            "id": "startAgentflow_0-input-startEphemeralMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Flow State",
+            "name": "startState",
+            "type": "array",
+            "description": "Runtime state during the execution of the workflow",
+            "optional": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string",
+                "placeholder": "Foo"
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "placeholder": "Bar",
+                "optional": true
+              }
+            ],
+            "id": "startAgentflow_0-input-startState-array",
+            "display": true
+          },
+          {
+            "label": "Persist State",
+            "name": "startPersistState",
+            "type": "boolean",
+            "description": "Persist the state in the same session",
+            "optional": true,
+            "id": "startAgentflow_0-input-startPersistState-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "startInputType": "chatInput",
+          "formTitle": "",
+          "formDescription": "",
+          "formInputTypes": "",
+          "startEphemeralMemory": true,
+          "startState": [
+            {
+              "key": "extractedData",
+              "value": ""
+            },
+            {
+              "key": "controlFlags",
+              "value": ""
+            },
+            {
+              "key": "intelligenceAnalysis",
+              "value": ""
+            },
+            {
+              "key": "verifiedFlags",
+              "value": ""
+            },
+            {
+              "key": "riskResult",
+              "value": ""
+            },
+            {
+              "key": "riskLevel",
+              "value": "LOW"
+            },
+            {
+              "key": "policy_data",
+              "value": ""
+            },
+            {
+              "key": "flags2A",
+              "value": ""
+            },
+            {
+              "key": "flags2B",
+              "value": ""
+            },
+            {
+              "key": "flags2C",
+              "value": ""
+            }
+          ],
+          "startPersistState": true
+        },
+        "outputAnchors": [
+          {
+            "id": "startAgentflow_0-output-startAgentflow",
+            "label": "Start",
+            "name": "startAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 103,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 72.01333852458761,
+        "y": -69.99806177425705
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "agentAgentflow_1",
+      "type": "agentFlow",
+      "position": {
+        "x": 737.3576431316905,
+        "y": 332.70676397382084
+      },
+      "data": {
+        "id": "agentAgentflow_1",
+        "label": "Phase 2A: Math & Approvals",
+        "version": 1,
+        "name": "agentAgentflow",
+        "type": "Agent",
+        "color": "#4DD0E1",
+        "baseClasses": [
+          "Agent"
+        ],
+        "category": "Agent Flows",
+        "description": "Dynamically choose and utilize tools during runtime, enabling multi-step reasoning",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "agentModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "agentAgentflow_1-input-agentModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "agentMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "generateInstruction": true,
+                "rows": 4
+              }
+            ],
+            "id": "agentAgentflow_1-input-agentMessages-array",
+            "display": true
+          },
+          {
+            "label": "Tools",
+            "name": "agentTools",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Tool",
+                "name": "agentSelectedTool",
+                "type": "asyncOptions",
+                "loadMethod": "listTools",
+                "loadConfig": true
+              },
+              {
+                "label": "Require Human Input",
+                "name": "agentSelectedToolRequiresHumanInput",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "id": "agentAgentflow_1-input-agentTools-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Document Stores)",
+            "name": "agentKnowledgeDocumentStores",
+            "type": "array",
+            "array": [
+              {
+                "label": "Document Store",
+                "name": "documentStore",
+                "type": "asyncOptions",
+                "loadMethod": "listStores"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "docStoreDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_1-input-agentKnowledgeDocumentStores-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Vector Embeddings)",
+            "name": "agentKnowledgeVSEmbeddings",
+            "type": "array",
+            "array": [
+              {
+                "label": "Vector Store",
+                "name": "vectorStore",
+                "type": "asyncOptions",
+                "loadMethod": "listVectorStores",
+                "loadConfig": true
+              },
+              {
+                "label": "Embedding Model",
+                "name": "embeddingModel",
+                "type": "asyncOptions",
+                "loadMethod": "listEmbeddings",
+                "loadConfig": true
+              },
+              {
+                "label": "Knowledge Name",
+                "name": "knowledgeName",
+                "type": "string"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "knowledgeDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_1-input-agentKnowledgeVSEmbeddings-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "agentEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "agentAgentflow_1-input-agentEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "agentMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_1-input-agentMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "agentMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "agentMemoryType": "windowSize"
+            },
+            "id": "agentAgentflow_1-input-agentMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "agentMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "agentMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "agentAgentflow_1-input-agentMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "agentUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_1-input-agentUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "agentReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "agentAgentflow_1-input-agentReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "agentUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "agentAgentflow_1-input-agentUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "agentModel": "chatLitellm",
+          "agentMessages": [
+            {
+              "role": "system",
+              "content": "<p>Active Policy / SOP Rules: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_data\" data-label=\"$flow.state.policy_data\">{{ $flow.state.policy_data }}</span> </p><p>Here is the extracted transaction data: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> <br>You are the Mathematical &amp; Approvals Agent. Think step-by-step:</p><p>STEP 1 — Extract amounts:</p><p>- Invoice Amount (invoice_amount)</p><p>- PO Amount (po_amount)</p><p>- GRN Amount (grn_amount)</p><p>- Note if po_id or grn_id is NULL (missing PO/GRN)</p><p>STEP 2 — Three-Way Match:</p><p>- Compare Invoice vs PO: flag if variance &gt; 1% (for goods) or &gt; 10% (for IT Services per policy)</p><p>- Compare Invoice vs GRN: flag if received_quantity != invoice_quantity</p><p>- If PO is missing: flag as CRITICAL \"No PO Found\"</p><p>- If GRN is missing: flag as HIGH \"No GRN Found\"</p><p>STEP 3 — Approval Limit Validation:</p><p>- If invoice_amount &gt; 100,000 AND approval_status_po is not 'Closed' or 'Approved': flag as HIGH</p><p>- If approval_limit_exceeded is TRUE: flag as HIGH \"Approval Limit Exceeded\"</p><p>- Check approver vs. amount against policy limits</p><p>STEP 4 — Quantity Reconciliation:</p><p>- If received_quantity &lt; ordered_quantity but invoice claims full amount: flag as MEDIUM \"Short Delivery Overbilled\"</p><p>STEP 5 — Output:</p><p>For EACH flag found, output: Flag Type, Severity (CRITICAL/HIGH/MEDIUM/LOW), Evidence (exact numbers), Transaction ID.</p><p>Output as a structured JSON array of flags. If no issues: return [].</p><p></p>"
+            }
+          ],
+          "agentTools": [
+            {
+              "agentSelectedTool": "customTool",
+              "agentSelectedToolRequiresHumanInput": "",
+              "agentSelectedToolConfig": {
+                "selectedTool": "a30d5766-ad09-4e8e-8541-670c30e3e2f4",
+                "returnDirect": "",
+                "customToolName": "",
+                "customToolDesc": "",
+                "customToolSchema": "",
+                "customToolFunc": "",
+                "agentSelectedTool": "customTool"
+              }
+            }
+          ],
+          "agentKnowledgeDocumentStores": [],
+          "agentKnowledgeVSEmbeddings": "",
+          "agentEnableMemory": true,
+          "agentReturnResponseAs": "userMessage",
+          "agentUpdateState": [
+            {
+              "key": "flags2A",
+              "value": "{{ output }}"
+            }
+          ],
+          "agentModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "agentModel": "chatLitellm"
+          },
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "agentAgentflow_1-output-agentAgentflow",
+            "label": "Agent",
+            "name": "agentAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 253,
+      "height": 100,
+      "positionAbsolute": {
+        "x": 737.3576431316905,
+        "y": 332.70676397382084
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "llmAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1052.4589462953622,
+        "y": -324.29162902976987
+      },
+      "data": {
+        "id": "llmAgentflow_0",
+        "label": "Phase 3: Challenger/Verifier",
+        "version": 1,
+        "name": "llmAgentflow",
+        "type": "LLM",
+        "color": "#64B5F6",
+        "baseClasses": [
+          "LLM"
+        ],
+        "category": "Agent Flows",
+        "description": "Large language models to analyze user-provided inputs and generate responses",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "llmModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "llmAgentflow_0-input-llmModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "llmMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "generateInstruction": true,
+                "rows": 4
+              }
+            ],
+            "id": "llmAgentflow_0-input-llmMessages-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "llmEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "llmAgentflow_0-input-llmEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "llmMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_0-input-llmMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "llmMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "llmMemoryType": "windowSize"
+            },
+            "id": "llmAgentflow_0-input-llmMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "llmMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "llmMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "llmAgentflow_0-input-llmMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "llmUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_0-input-llmUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "llmReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "llmAgentflow_0-input-llmReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "JSON Structured Output",
+            "name": "llmStructuredOutput",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "String Array",
+                    "name": "stringArray"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  },
+                  {
+                    "label": "Enum",
+                    "name": "enum"
+                  },
+                  {
+                    "label": "JSON Array",
+                    "name": "jsonArray"
+                  }
+                ]
+              },
+              {
+                "label": "Enum Values",
+                "name": "enumValues",
+                "type": "string",
+                "optional": true,
+                "show": {
+                  "llmStructuredOutput[$index].type": "enum"
+                }
+              },
+              {
+                "label": "JSON Schema",
+                "name": "jsonSchema",
+                "type": "code",
+                "optional": true,
+                "show": {
+                  "llmStructuredOutput[$index].type": "jsonArray"
+                }
+              },
+              {
+                "label": "Description",
+                "name": "description",
+                "type": "string",
+                "placeholder": "Description of the key"
+              }
+            ],
+            "id": "llmAgentflow_0-input-llmStructuredOutput-array",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "llmUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "llmAgentflow_0-input-llmUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "llmModel": "chatLitellm",
+          "llmMessages": [
+            {
+              "role": "system",
+              "content": "You are the Challenger/Verifier Agent. Your role is to critically review ALL audit flags from the previous phase and ELIMINATE false positives.\n\nFor each flag in the conversation history, you must:\n1. CHECK if the evidence actually supports the flag\n2. VERIFY that the flag severity is appropriate\n3. REMOVE any flags that are false positives or lack sufficient evidence\n4. KEEP only flags with strong, verifiable evidence\n\nRules:\n- A three-way mismatch is only valid if amounts differ by more than 1%\n- A duplicate is only valid if the SAME invoice number appears for the SAME vendor\n- Round numbers alone are not sufficient for a flag - they need additional context\n- Weekend transactions are only suspicious if the organization doesn't operate on weekends\n\nOutput your verified flags as a JSON object with:\n{\n  \"verifiedFlags\": [ array of verified flag objects ],\n  \"removedFlags\": [ array of removed flags with reason for removal ],\n  \"summary\": { \"critical\": count, \"high\": count, \"medium\": count, \"low\": count }\n}"
+            }
+          ],
+          "llmEnableMemory": true,
+          "llmReturnResponseAs": "userMessage",
+          "llmStructuredOutput": [],
+          "llmUpdateState": [
+            {
+              "key": "verifiedFlags",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+            }
+          ],
+          "llmModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "llmModel": "chatLitellm"
+          }
+        },
+        "outputAnchors": [
+          {
+            "id": "llmAgentflow_0-output-llmAgentflow",
+            "label": "LLM",
+            "name": "llmAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 253,
+      "height": 72,
+      "positionAbsolute": {
+        "x": 1052.4589462953622,
+        "y": -324.29162902976987
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "customFunctionAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1141.8457846057781,
+        "y": 248.7516694510984
+      },
+      "data": {
+        "id": "customFunctionAgentflow_0",
+        "label": "Phase 4: Risk Scorer",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Execute custom function",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "description": "Input variables can be used in the function with prefix $. For example: $foo",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_0-input-customFunctionInputVariables-array",
+            "display": true
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string.",
+            "id": "customFunctionAgentflow_0-input-customFunctionJavascriptFunction-code",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "customFunctionUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_0-input-customFunctionUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "verifiedFlags",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "/*\n * Risk Scoring Calculator\n * Deterministic weighted formula for audit risk scoring\n * Weights: CRITICAL=30, HIGH=20, MEDIUM=10, LOW=5\n * Threshold: >= 70 requires human review\n */\n\nconst weights = { critical: 30, high: 20, medium: 10, low: 5 };\nlet counts = { critical: 0, high: 0, medium: 0, low: 0 };\n\ntry {\n    // Try to parse the verified flags from the previous phase\n    const text = $verifiedFlags || '';\n    \n    // Try JSON parse first\n    let parsed;\n    try {\n        // Find JSON in the text\n        const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n        if (jsonMatch) {\n            parsed = JSON.parse(jsonMatch[0]);\n        }\n    } catch(e) {\n        parsed = null;\n    }\n    \n    if (parsed && parsed.summary) {\n        // Use the summary counts from the verifier\n        counts.critical = parsed.summary.critical || 0;\n        counts.high = parsed.summary.high || 0;\n        counts.medium = parsed.summary.medium || 0;\n        counts.low = parsed.summary.low || 0;\n    } else if (parsed && parsed.verifiedFlags && Array.isArray(parsed.verifiedFlags)) {\n        // Count from array of flags\n        for (const flag of parsed.verifiedFlags) {\n            const sev = (flag.severity || flag.Severity || 'medium').toLowerCase();\n            if (counts.hasOwnProperty(sev)) counts[sev]++;\n        }\n    } else {\n        // Fallback: count severity keywords in text\n        counts.critical = (text.match(/\\bcritical\\b/gi) || []).length;\n        counts.high = (text.match(/\\bhigh\\b/gi) || []).length;\n        counts.medium = (text.match(/\\bmedium\\b/gi) || []).length;\n        counts.low = (text.match(/\\blow\\b/gi) || []).length;\n        // Avoid over-counting by capping\n        counts.critical = Math.min(counts.critical, 10);\n        counts.high = Math.min(counts.high, 10);\n        counts.medium = Math.min(counts.medium, 10);\n        counts.low = Math.min(counts.low, 10);\n    }\n} catch(e) {\n    // If everything fails, default to medium risk\n    counts.medium = 3;\n}\n\n// Calculate base weighted score\n    let score = counts.critical * weights.critical + counts.high * weights.high + counts.medium * weights.medium + counts.low * weights.low;\n    \n    // Cap at 100\n    score = Math.min(score, 100);\n\n    // --- NEW: AUTO-ESCALATION OVERRIDE ---\n    // If ANY Critical or High flags exist, force the score to meet their respective thresholds\n    if (counts.critical > 0) {\n        score = Math.max(score, 70); // Force score to at least 70\n    } else if (counts.high > 0) {\n        score = Math.max(score, 50); // Force score to at least 50\n    }\n\n    // Determine final risk level\n    let level;\n    if (score >= 70) level = 'CRITICAL';\n    else if (score >= 50) level = 'HIGH';\n    else if (score >= 30) level = 'MEDIUM';\n    else level = 'LOW';\n\n    // --- NEW: UPDATE HITL THRESHOLD ---\n    // Set HITL threshold to 50 so both HIGH and CRITICAL trigger human review\n    const hitlThreshold = 50; \n\n    const result = {\n        riskScore: score,\n        riskLevel: level,\n        breakdown: counts,\n        weights: weights,\n        threshold: hitlThreshold,\n        requiresHumanReview: score >= hitlThreshold,\n        routing: score >= hitlThreshold ? 'ESCALATE_TO_HUMAN' : 'AUTO_APPROVE'\n    };\n\nreturn result;",
+          "customFunctionUpdateState": [
+            {
+              "key": "riskResult",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+            },
+            {
+              "key": "riskLevel",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span>.riskLevel</p>"
+            }
+          ]
+        },
+        "outputAnchors": [
+          {
+            "id": "customFunctionAgentflow_0-output-customFunctionAgentflow",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 200,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 1141.8457846057781,
+        "y": 248.7516694510984
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "conditionAgentAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1400,
+        "y": 250
+      },
+      "data": {
+        "id": "conditionAgentAgentflow_0",
+        "label": "Risk Router",
+        "version": 1,
+        "name": "conditionAgentAgentflow",
+        "type": "ConditionAgent",
+        "color": "#ff8fab",
+        "baseClasses": [
+          "ConditionAgent"
+        ],
+        "category": "Agent Flows",
+        "description": "Utilize an agent to split flows based on dynamic conditions",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "conditionAgentModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "conditionAgentAgentflow_0-input-conditionAgentModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Instructions",
+            "name": "conditionAgentInstructions",
+            "type": "string",
+            "rows": 4,
+            "acceptVariable": true,
+            "id": "conditionAgentAgentflow_0-input-conditionAgentInstructions-string",
+            "display": true
+          },
+          {
+            "label": "Input",
+            "name": "conditionAgentInput",
+            "type": "string",
+            "rows": 4,
+            "acceptVariable": true,
+            "id": "conditionAgentAgentflow_0-input-conditionAgentInput-string",
+            "display": true
+          },
+          {
+            "label": "Scenarios",
+            "name": "conditionAgentScenarios",
+            "type": "array",
+            "description": "Define the scenarios that will be used as the conditions to split the flow",
+            "array": [
+              {
+                "label": "Scenario",
+                "name": "scenario",
+                "type": "string"
+              }
+            ],
+            "id": "conditionAgentAgentflow_0-input-conditionAgentScenarios-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "conditionAgentModel": "chatLitellm",
+          "conditionAgentInstructions": "<p>Analyze the provided JSON risk data. If the riskLevel is 'LOW' or 'MEDIUM' and requiresHumanReview is 'false', select the Auto-approve scenario. If riskLevel is 'HIGH' or 'CRITICAL', select the Human Review scenario.</p>",
+          "conditionAgentInput": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"customFunctionAgentflow_0\" data-label=\"customFunctionAgentflow_0\">{{ customFunctionAgentflow_0 }}</span> </p>",
+          "conditionAgentScenarios": [
+            {
+              "scenario": "Select this route ONLY IF the parsed riskLevel is CRITICAL or HIGH, or requiresHumanReview is explicitly true."
+            },
+            {
+              "scenario": "Select this route ONLY IF the parsed riskLevel is LOW or MEDIUM, and requiresHumanReview is false."
+            }
+          ],
+          "conditionAgentModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": "0",
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "conditionAgentModel": "chatLitellm"
+          }
+        },
+        "outputAnchors": [
+          {
+            "id": "conditionAgentAgentflow_0-output-0",
+            "label": 0,
+            "name": 0,
+            "description": "Condition 0"
+          },
+          {
+            "id": "conditionAgentAgentflow_0-output-1",
+            "label": 1,
+            "name": 1,
+            "description": "Condition 1"
+          }
+        ],
+        "outputs": {
+          "conditionAgentAgentflow": ""
+        },
+        "selected": false
+      },
+      "width": 253,
+      "height": 80,
+      "positionAbsolute": {
+        "x": 1400,
+        "y": 250
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "humanInputAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1700,
+        "y": 150
+      },
+      "data": {
+        "id": "humanInputAgentflow_0",
+        "label": "Auditor Review (HITL)",
+        "version": 1,
+        "name": "humanInputAgentflow",
+        "type": "HumanInput",
+        "color": "#6E6EFD",
+        "baseClasses": [
+          "HumanInput"
+        ],
+        "category": "Agent Flows",
+        "description": "Request human input, approval or rejection during execution",
+        "inputParams": [
+          {
+            "label": "Description Type",
+            "name": "humanInputDescriptionType",
+            "type": "options",
+            "options": [
+              {
+                "label": "Fixed",
+                "name": "fixed"
+              },
+              {
+                "label": "Dynamic",
+                "name": "dynamic"
+              }
+            ],
+            "id": "humanInputAgentflow_0-input-humanInputDescriptionType-options",
+            "display": true
+          },
+          {
+            "label": "Description",
+            "name": "humanInputDescription",
+            "type": "string",
+            "placeholder": "Are you sure you want to proceed?",
+            "acceptVariable": true,
+            "rows": 4,
+            "show": {
+              "humanInputDescriptionType": "fixed"
+            },
+            "id": "humanInputAgentflow_0-input-humanInputDescription-string",
+            "display": true
+          },
+          {
+            "label": "Model",
+            "name": "humanInputModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "show": {
+              "humanInputDescriptionType": "dynamic"
+            },
+            "id": "humanInputAgentflow_0-input-humanInputModel-asyncOptions",
+            "display": false
+          },
+          {
+            "label": "Prompt",
+            "name": "humanInputModelPrompt",
+            "type": "string",
+            "acceptVariable": true,
+            "rows": 4,
+            "show": {
+              "humanInputDescriptionType": "dynamic"
+            },
+            "id": "humanInputAgentflow_0-input-humanInputModelPrompt-string",
+            "display": false
+          },
+          {
+            "label": "Enable Feedback",
+            "name": "humanInputEnableFeedback",
+            "type": "boolean",
+            "default": true,
+            "id": "humanInputAgentflow_0-input-humanInputEnableFeedback-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "humanInputDescriptionType": "fixed",
+          "humanInputDescription": "<p>{ \"type\": \"HITL_REQUIRED\", \"riskResult\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.riskResult\" data-label=\"$flow.state.riskResult\">{{ $flow.state.riskResult }}</span> , \"verifiedFlags\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> , \"extractedData\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> }</p>",
+          "humanInputEnableFeedback": true,
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "humanInputAgentflow_0-output-0",
+            "label": "Human Input",
+            "name": "humanInputAgentflow"
+          },
+          {
+            "id": "humanInputAgentflow_0-output-1",
+            "label": "Human Input",
+            "name": "humanInputAgentflow"
+          }
+        ],
+        "outputs": {
+          "humanInputAgentflow": ""
+        },
+        "selected": false
+      },
+      "width": 210,
+      "height": 80,
+      "positionAbsolute": {
+        "x": 1700,
+        "y": 150
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "loopAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 2022.8445311906576,
+        "y": 234.21162074511224
+      },
+      "data": {
+        "id": "loopAgentflow_0",
+        "label": "Re-analyze",
+        "version": 1,
+        "name": "loopAgentflow",
+        "type": "Loop",
+        "color": "#FFA07A",
+        "hideOutput": true,
+        "baseClasses": [
+          "Loop"
+        ],
+        "category": "Agent Flows",
+        "description": "Loop back to a previous node",
+        "inputParams": [
+          {
+            "label": "Loop Back To",
+            "name": "loopBackToNode",
+            "type": "asyncOptions",
+            "loadMethod": "listPreviousNodes",
+            "freeSolo": true,
+            "id": "loopAgentflow_0-input-loopBackToNode-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Max Loop Count",
+            "name": "maxLoopCount",
+            "type": "number",
+            "default": 5,
+            "id": "loopAgentflow_0-input-maxLoopCount-number",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "loopBackToNode": "customFunctionAgentflow_1-Phase 1: Data Extractor",
+          "maxLoopCount": 3
+        },
+        "outputAnchors": [],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 141,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 2022.8445311906576,
+        "y": 234.21162074511224
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "llmAgentflow_1",
+      "type": "agentFlow",
+      "position": {
+        "x": 1927.388227962568,
+        "y": 430.7979060081034
+      },
+      "data": {
+        "id": "llmAgentflow_1",
+        "label": "Generate Audit Pack",
+        "version": 1,
+        "name": "llmAgentflow",
+        "type": "LLM",
+        "color": "#64B5F6",
+        "baseClasses": [
+          "LLM"
+        ],
+        "category": "Agent Flows",
+        "description": "Large language models to analyze user-provided inputs and generate responses",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "llmModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "llmAgentflow_1-input-llmModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "llmMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "rows": 4
+              }
+            ],
+            "id": "llmAgentflow_1-input-llmMessages-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "llmEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "llmAgentflow_1-input-llmEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "llmMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_1-input-llmMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "llmMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "llmMemoryType": "windowSize"
+            },
+            "id": "llmAgentflow_1-input-llmMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "llmMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "llmMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "llmAgentflow_1-input-llmMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "llmUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_1-input-llmUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "llmReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "llmAgentflow_1-input-llmReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "JSON Structured Output",
+            "name": "llmStructuredOutput",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  }
+                ]
+              },
+              {
+                "label": "Description",
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "id": "llmAgentflow_1-input-llmStructuredOutput-array",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "llmUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "llmAgentflow_1-input-llmUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "llmModel": "chatLitellm",
+          "llmMessages": [
+            {
+              "role": "system",
+              "content": "You are the Audit Report Generator. Create a JSON response containing the audit metadata and report.\n\nFields to populate:\n- risk_rating: LOW, MEDIUM, HIGH, or CRITICAL\n- risk_score: The calculated numeric risk score\n- flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence')\n- recommended_action: AUTO_APPROVE or ESCALATE_TO_HUMAN\n- citation: Relevant SOP sections cited\n- policy_version_applied: The numeric policy version used\n- explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report including transaction tables, summary, and evidence chain.\n\nEnsure all fields are accurate based on the context variables provided (extractedData, controlFlags, riskResult, etc.)."
+            }
+          ],
+          "llmEnableMemory": true,
+          "llmReturnResponseAs": "jsonStructuredOutput",
+          "llmStructuredOutput": [
+            {
+              "key": "risk_rating",
+              "type": "string",
+              "description": "LOW, MEDIUM, HIGH, or CRITICAL based on the score."
+            },
+            {
+              "key": "risk_score",
+              "type": "number",
+              "description": "Numeric score (0-100) from the riskResult state."
+            },
+            {
+              "key": "flags_detected",
+              "type": "jsonArray",
+              "description": "Array of flag objects found during the multi-agent checks."
+            },
+            {
+              "key": "recommended_action",
+              "type": "string",
+              "description": "Either AUTO_APPROVE or ESCALATE_TO_HUMAN."
+            },
+            {
+              "key": "citation",
+              "type": "string",
+              "description": "Policy/SOP sections used for verification."
+            },
+            {
+              "key": "policy_version_applied",
+              "type": "number",
+              "description": "Active procurement policy version number."
+            },
+            {
+              "key": "explanation",
+              "type": "string",
+              "description": "The full human-readable Markdown AUTOMATED AUDIT PACK."
+            }
+          ],
+          "llmUpdateState": "",
+          "llmModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "llmModel": "chatLitellm"
+          },
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "llmAgentflow_1-output-llmAgentflow",
+            "label": "LLM",
+            "name": "llmAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 253,
+      "height": 72,
+      "positionAbsolute": {
+        "x": 1927.388227962568,
+        "y": 430.7979060081034
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "stickyNoteAgentflow_0",
+      "type": "stickyNote",
+      "position": {
+        "x": -125.27729368862217,
+        "y": -274.7377851428429
+      },
+      "data": {
+        "id": "stickyNoteAgentflow_0",
+        "label": "Sticky Note",
+        "version": 1,
+        "name": "stickyNoteAgentflow",
+        "type": "StickyNote",
+        "color": "#fee440",
+        "baseClasses": [
+          "StickyNote"
+        ],
+        "category": "Agent Flows",
+        "description": "Add notes to the agent flow",
+        "inputParams": [
+          {
+            "label": "",
+            "name": "note",
+            "type": "string",
+            "rows": 1,
+            "placeholder": "Type something here",
+            "optional": true,
+            "id": "stickyNoteAgentflow_0-input-note-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "note": "\nModel Configuration:\n\nBase URL: https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com\n\nModels available for multi agent flows:\nqwen3.5-35b-hacksplosion\n\nModels available for Knowledge Base:\nqwen3emb-0.6b-hacksplosion\nqwen3reranker-0.6b-hacksplosion\n\nPostgres Vector DB for Knowledge Base:\nDatabase: Workspace42_hacksplosion_vector\nUsername: Workspaceuser42_hacksplosion_pg\nHost: genw-innovation-nonprod-aurora-cluster.cluster-ct4kk4qgm9lt.ap-south-1.rds.amazonaws.com\nPort: 5432\nTable: <unique_to_your_kb>\n\n━━━ SETUP INSTRUCTIONS ━━━\n1. Select 'qwen3.5-35b-hacksplosion' as model in ALL Agent/LLM/ConditionAgent nodes\n2. Configure Knowledge Base in Agent 0 (Data Extractor) with Postgres vector store\n3. Upload your financial CSV/Excel data to the Knowledge Base first\n4. Test the flow with: 'Audit vendor VEND101'\n"
+        },
+        "outputAnchors": [
+          {
+            "id": "stickyNoteAgentflow_0-output-stickyNoteAgentflow",
+            "label": "Sticky Note",
+            "name": "stickyNoteAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 200,
+      "height": 1229,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -125.27729368862217,
+        "y": -274.7377851428429
+      },
+      "dragging": false
+    },
+    {
+      "id": "webhook_extr_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 392.4141536811401,
+        "y": 99.66804820785046
+      },
+      "data": {
+        "id": "webhook_extr_0",
+        "label": "Webhook: extraction",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Webhook to update dashboard",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "description": "Input variables can be used in the function with prefix $.",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ]
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string."
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "phase",
+              "variableValue": "extraction"
+            },
+            {
+              "variableName": "output",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> </p>"
+            },
+            {
+              "variableName": "sessionId",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function logActivity() {\n  return new Promise((resolve) => {\n    try {\n      const query = `\n        INSERT INTO agent_activity_logs \n          (agent_name, action_type, entity_reference, details, status, session_id)\n        VALUES ($1, $2, $3, $4, 'Success', $5)\n      `;\n      const params = [\n        `Phase-${$phase}`,\n        'PHASE_COMPLETE',\n        $sessionId || '',\n        String($output || '').substring(0, 1000), // truncate for DB\n        $sessionId || ''\n      ];\n\n      const postData = JSON.stringify({ query, params });\n      const options = {\n        hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n        port: 443,\n        path: '/sql',\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'Neon-Connection-String': connectionString,\n          'Content-Length': Buffer.byteLength(postData)\n        }\n      };\n\n      const req = https.request(options, (res) => {\n        let body = '';\n        res.on('data', chunk => body += chunk);\n        res.on('end', () => {\n          // Always return the original output so the flow continues\n          resolve(JSON.stringify({ phase: $phase, logged: res.statusCode < 300 }));\n        });\n      });\n      req.on('error', () => resolve(JSON.stringify({ phase: $phase, logged: false })));\n      req.write(postData);\n      req.end();\n    } catch(e) {\n      resolve(JSON.stringify({ phase: $phase, logged: false, error: String(e) }));\n    }\n  });\n}\n\nreturn await logActivity();\n",
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "webhook_extr_0-output-webhook_extr_0",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 206,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 392.4141536811401,
+        "y": 99.66804820785046
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "webhook_ctrl_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 775.5977799958328,
+        "y": -25.10904674789643
+      },
+      "data": {
+        "id": "webhook_ctrl_0",
+        "label": "Webhook: controls",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Webhook to update dashboard",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "description": "Input variables can be used in the function with prefix $.",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ]
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string."
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "phase",
+              "variableValue": "controls"
+            },
+            {
+              "variableName": "output",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.controlFlags\" data-label=\"$flow.state.controlFlags\">{{ $flow.state.controlFlags }}</span> </p>"
+            },
+            {
+              "variableName": "sessionId",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function logActivity() {\n  return new Promise((resolve) => {\n    try {\n      const query = `\n        INSERT INTO agent_activity_logs \n          (agent_name, action_type, entity_reference, details, status, session_id)\n        VALUES ($1, $2, $3, $4, 'Success', $5)\n      `;\n      const params = [\n        `Phase-${$phase}`,\n        'PHASE_COMPLETE',\n        $sessionId || '',\n        String($output || '').substring(0, 1000), // truncate for DB\n        $sessionId || ''\n      ];\n\n      const postData = JSON.stringify({ query, params });\n      const options = {\n        hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n        port: 443,\n        path: '/sql',\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'Neon-Connection-String': connectionString,\n          'Content-Length': Buffer.byteLength(postData)\n        }\n      };\n\n      const req = https.request(options, (res) => {\n        let body = '';\n        res.on('data', chunk => body += chunk);\n        res.on('end', () => {\n          // Always return the original output so the flow continues\n          resolve(JSON.stringify({ phase: $phase, logged: res.statusCode < 300 }));\n        });\n      });\n      req.on('error', () => resolve(JSON.stringify({ phase: $phase, logged: false })));\n      req.write(postData);\n      req.end();\n    } catch(e) {\n      resolve(JSON.stringify({ phase: $phase, logged: false, error: String(e) }));\n    }\n  });\n}\n\nreturn await logActivity();\n",
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "webhook_ctrl_0-output-webhook_ctrl_0",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 193,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 775.5977799958328,
+        "y": -25.10904674789643
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "webhook_veri_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1288,
+        "y": -72
+      },
+      "data": {
+        "id": "webhook_veri_0",
+        "label": "Webhook: verification",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Webhook to update dashboard",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "description": "Input variables can be used in the function with prefix $.",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ]
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string."
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "phase",
+              "variableValue": "verification"
+            },
+            {
+              "variableName": "output",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> </p>"
+            },
+            {
+              "variableName": "sessionId",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function logActivity() {\n  return new Promise((resolve) => {\n    try {\n      const query = `\n        INSERT INTO agent_activity_logs \n          (agent_name, action_type, entity_reference, details, status, session_id)\n        VALUES ($1, $2, $3, $4, 'Success', $5)\n      `;\n      const params = [\n        `Phase-${$phase}`,\n        'PHASE_COMPLETE',\n        $sessionId || '',\n        String($output || '').substring(0, 1000), // truncate for DB\n        $sessionId || ''\n      ];\n\n      const postData = JSON.stringify({ query, params });\n      const options = {\n        hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n        port: 443,\n        path: '/sql',\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'Neon-Connection-String': connectionString,\n          'Content-Length': Buffer.byteLength(postData)\n        }\n      };\n\n      const req = https.request(options, (res) => {\n        let body = '';\n        res.on('data', chunk => body += chunk);\n        res.on('end', () => {\n          // Always return the original output so the flow continues\n          resolve(JSON.stringify({ phase: $phase, logged: res.statusCode < 300 }));\n        });\n      });\n      req.on('error', () => resolve(JSON.stringify({ phase: $phase, logged: false })));\n      req.write(postData);\n      req.end();\n    } catch(e) {\n      resolve(JSON.stringify({ phase: $phase, logged: false, error: String(e) }));\n    }\n  });\n}\n\nreturn await logActivity();\n"
+        },
+        "outputAnchors": [
+          {
+            "id": "webhook_veri_0-output-webhook_veri_0",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 212,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 1288,
+        "y": -72
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "webhook_scor_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 1300,
+        "y": 150
+      },
+      "data": {
+        "id": "webhook_scor_0",
+        "label": "Webhook: scoring",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Webhook to update dashboard",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "description": "Input variables can be used in the function with prefix $.",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ]
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string."
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "phase",
+              "variableValue": "scoring"
+            },
+            {
+              "variableName": "output",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.riskResult\" data-label=\"$flow.state.riskResult\">{{ $flow.state.riskResult }}</span> </p>"
+            },
+            {
+              "variableName": "sessionId",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function logActivity() {\n  return new Promise((resolve) => {\n    try {\n      const query = `\n        INSERT INTO agent_activity_logs \n          (agent_name, action_type, entity_reference, details, status, session_id)\n        VALUES ($1, $2, $3, $4, 'Success', $5)\n      `;\n      const params = [\n        `Phase-${$phase}`,\n        'PHASE_COMPLETE',\n        $sessionId || '',\n        String($output || '').substring(0, 1000), // truncate for DB\n        $sessionId || ''\n      ];\n\n      const postData = JSON.stringify({ query, params });\n      const options = {\n        hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n        port: 443,\n        path: '/sql',\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'Neon-Connection-String': connectionString,\n          'Content-Length': Buffer.byteLength(postData)\n        }\n      };\n\n      const req = https.request(options, (res) => {\n        let body = '';\n        res.on('data', chunk => body += chunk);\n        res.on('end', () => {\n          // Always return the original output so the flow continues\n          resolve(JSON.stringify({ phase: $phase, logged: res.statusCode < 300 }));\n        });\n      });\n      req.on('error', () => resolve(JSON.stringify({ phase: $phase, logged: false })));\n      req.write(postData);\n      req.end();\n    } catch(e) {\n      resolve(JSON.stringify({ phase: $phase, logged: false, error: String(e) }));\n    }\n  });\n}\n\nreturn await logActivity();\n"
+        },
+        "outputAnchors": [
+          {
+            "id": "webhook_scor_0-output-webhook_scor_0",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 187,
+      "height": 66,
+      "positionAbsolute": {
+        "x": 1300,
+        "y": 150
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "customFunctionAgentflow_1",
+      "position": {
+        "x": 240,
+        "y": -70
+      },
+      "data": {
+        "id": "customFunctionAgentflow_1",
+        "label": "Phase 1: Data Extractor",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Execute custom function",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "description": "Input variables can be used in the function with prefix $. For example: $foo",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_1-input-customFunctionInputVariables-array",
+            "display": true
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "codeExample": "/*\n* You can use any libraries imported in Flowise\n* You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid\n* You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state\n* You can get custom variables: $vars.<variable-name>\n* Must return a string value at the end of function\n*/\n\nconst fetch = require('node-fetch');\nconst url = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true';\nconst options = {\n    method: 'GET',\n    headers: {\n        'Content-Type': 'application/json'\n    }\n};\ntry {\n    const response = await fetch(url, options);\n    const text = await response.text();\n    return text;\n} catch (error) {\n    console.error(error);\n    return '';\n}",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string.",
+            "id": "customFunctionAgentflow_1-input-customFunctionJavascriptFunction-code",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "customFunctionUpdateState",
+            "description": "Update runtime state during the execution of the workflow",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_1-input-customFunctionUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "vendor_id",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"question\" data-label=\"question\">{{ question }}</span>&nbsp;</p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function fetchInvoiceData() {\n  return new Promise((resolve, reject) => {\n    try {\n      const rawInput = typeof $vendor_id !== 'undefined' ? String($vendor_id) : '';\n\n      // Match INV-001 format (with hyphen)\n      const invoiceMatch = rawInput.match(/INV-?\\w+/i);\n      const vendorMatch = rawInput.match(/VEN-?\\d+/i);\n\n      let query, params, lookupMode;\n\n      if (invoiceMatch) {\n        lookupMode = 'invoice';\n        query = `\n          SELECT\n            i.invoice_id,\n            i.date            AS invoice_date,\n            i.vendor_id,\n            i.invoice_number,\n            i.po_id,\n            i.grn_id,\n            i.invoice_amount,\n            i.amount          AS invoice_amount_alt,\n            i.gstin           AS invoice_gstin,\n            i.approval_status,\n            i.approval_limit_exceeded,\n            i.department,\n            i.cost_center,\n            i.payment_status,\n            i.quantity        AS invoice_quantity,\n            po.po_amount,\n            po.status         AS approval_status_po,\n            po.po_date,\n            po.vendor_id      AS po_vendor_id,\n            po.department     AS po_department,\n            po.approver,\n            gr.received_amount AS grn_amount,\n            gr.received_quantity,\n            gr.ordered_quantity,\n            gr.receipt_date,\n            gr.quality_check,\n            vm.vendor_name,\n            vm.official_gstin AS official_gstin,\n            vm.pan_number,\n            vm.vendor_category,\n            vm.city,\n            vm.state,\n            vm.risk_rating    AS vendor_risk_rating,\n            vm.risk_score_numeric,\n            vm.blacklist_status,\n            vm.blacklisted,\n            vm.shell_risk_score,\n            vm.shared_director,\n            vm.shared_ip_address,\n            vm.gstin_status,\n            vm.kyc_status\n          FROM invoices i\n          LEFT JOIN purchase_orders po  ON i.po_id  = po.po_id\n          LEFT JOIN goods_receipts  gr  ON i.grn_id = gr.grn_id\n          LEFT JOIN vendor_master   vm  ON i.vendor_id = vm.vendor_id\n          WHERE i.invoice_id ILIKE $1\n          LIMIT 1;\n        `;\n        params = [invoiceMatch[0].toUpperCase()];\n      } else if (vendorMatch) {\n        lookupMode = 'vendor';\n        query = `\n          SELECT\n            i.invoice_id,\n            i.date            AS invoice_date,\n            i.vendor_id,\n            i.invoice_number,\n            i.po_id,\n            i.grn_id,\n            i.invoice_amount,\n            i.gstin           AS invoice_gstin,\n            i.approval_status,\n            i.approval_limit_exceeded,\n            i.department,\n            po.po_amount,\n            po.status         AS approval_status_po,\n            gr.received_amount AS grn_amount,\n            gr.received_quantity,\n            gr.ordered_quantity,\n            vm.vendor_name,\n            vm.official_gstin AS official_gstin,\n            vm.pan_number,\n            vm.vendor_category,\n            vm.risk_rating    AS vendor_risk_rating,\n            vm.blacklisted,\n            vm.shell_risk_score,\n            vm.shared_director,\n            vm.shared_ip_address,\n            vm.gstin_status,\n            vm.kyc_status\n          FROM invoices i\n          LEFT JOIN purchase_orders po  ON i.po_id  = po.po_id\n          LEFT JOIN goods_receipts  gr  ON i.grn_id = gr.grn_id\n          LEFT JOIN vendor_master   vm  ON i.vendor_id = vm.vendor_id\n          WHERE i.vendor_id ILIKE $1\n          ORDER BY i.date DESC\n          LIMIT 20;\n        `;\n        params = [vendorMatch[0].toUpperCase()];\n      } else {\n        return resolve(JSON.stringify({\n          error: \"Invalid input\",\n          details: \"Please provide an invoice ID (e.g., INV-001) or vendor ID (e.g., VEN-001).\",\n          raw_input: rawInput\n        }, null, 2));\n      }\n\n      const postData = JSON.stringify({ query, params });\n      const options = {\n        hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n        port: 443,\n        path: '/sql',\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'Neon-Connection-String': connectionString,\n          'Content-Length': Buffer.byteLength(postData)\n        }\n      };\n\n      const req = https.request(options, (res) => {\n        let body = '';\n        res.on('data', chunk => body += chunk);\n        res.on('end', () => {\n          if (res.statusCode >= 200 && res.statusCode < 300) {\n            try {\n              const parsed = JSON.parse(body);\n              const rows = parsed.rows || parsed;\n              if (!rows || rows.length === 0) {\n                return resolve(JSON.stringify({ error: `No records found`, lookup_mode: lookupMode, lookup_value: params[0] }, null, 2));\n              }\n              if (lookupMode === 'invoice') {\n                const row = rows[0];\n                const inv = parseFloat(row.invoice_amount) || 0;\n                const po  = parseFloat(row.po_amount) || 0;\n                const grn = parseFloat(row.grn_amount) || 0;\n                row._three_way_match_ok = (inv > 0 && po > 0 && grn > 0)\n                  ? (Math.abs(inv - po) / po < 0.01 && Math.abs(inv - grn) / grn < 0.01)\n                  : null;\n                row._requires_enhanced_approval = inv > 100000;\n                row._po_missing = !row.po_id;\n                row._grn_missing = !row.grn_id;\n                resolve(JSON.stringify(row, null, 2));\n              } else {\n                resolve(JSON.stringify({ vendor_id: params[0], invoice_count: rows.length, invoices: rows }, null, 2));\n              }\n            } catch (e) {\n              resolve(JSON.stringify({ error: \"JSON parse failed\", details: e.message }));\n            }\n          } else {\n            resolve(JSON.stringify({ error: `Neon HTTP Error ${res.statusCode}`, details: body }));\n          }\n        });\n      });\n\n      req.on('error', e => resolve(JSON.stringify({ error: \"Network error\", message: e.message })));\n      req.write(postData);\n      req.end();\n    } catch (err) {\n      resolve(JSON.stringify({ error: String(err), message: err.message }));\n    }\n  });\n}\n\nreturn await fetchInvoiceData();\n",
+          "customFunctionUpdateState": [
+            {
+              "key": "extractedData",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+            }
+          ]
+        },
+        "outputAnchors": [
+          {
+            "id": "customFunctionAgentflow_1-output-customFunctionAgentflow",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "type": "agentFlow",
+      "width": 222,
+      "height": 66,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 240,
+        "y": -70
+      }
+    },
+    {
+      "id": "llmAgentflow_2",
+      "type": "agentFlow",
+      "position": {
+        "x": 1930.2554895815515,
+        "y": -63.15729140443261
+      },
+      "data": {
+        "id": "llmAgentflow_2",
+        "label": "Generate Audit Pack (2)",
+        "version": 1,
+        "name": "llmAgentflow",
+        "type": "LLM",
+        "color": "#64B5F6",
+        "baseClasses": [
+          "LLM"
+        ],
+        "category": "Agent Flows",
+        "description": "Large language models to analyze user-provided inputs and generate responses",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "llmModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "llmAgentflow_2-input-llmModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "llmMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "rows": 4
+              }
+            ],
+            "id": "llmAgentflow_2-input-llmMessages-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "llmEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "llmAgentflow_2-input-llmEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "llmMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_2-input-llmMemoryType-options",
+            "display": false
+          },
+          {
+            "label": "Window Size",
+            "name": "llmMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "llmMemoryType": "windowSize"
+            },
+            "id": "llmAgentflow_2-input-llmMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "llmMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "llmMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "llmAgentflow_2-input-llmMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "llmUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "llmEnableMemory": true
+            },
+            "id": "llmAgentflow_2-input-llmUserMessage-string",
+            "display": false
+          },
+          {
+            "label": "Return Response As",
+            "name": "llmReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "llmAgentflow_2-input-llmReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "JSON Structured Output",
+            "name": "llmStructuredOutput",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  }
+                ]
+              },
+              {
+                "label": "Description",
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "id": "llmAgentflow_2-input-llmStructuredOutput-array",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "llmUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "llmAgentflow_2-input-llmUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "llmModel": "chatLitellm",
+          "llmMessages": [
+            {
+              "role": "system",
+              "content": "<p>You are the Audit Report Generator for the ESCALATED path. Create a JSON response containing the audit metadata and report. Note: A human auditor has already reviewed this transaction and decided to APPROVE/PROCEED. Fields to populate: - risk_rating: LOW, MEDIUM, HIGH, or CRITICAL based on the score - risk_score: The calculated numeric risk score - flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence') - recommended_action: STRICTLY output \"ESCALATE_TO_HUMAN\" - citation: Relevant SOP sections cited - policy_version_applied: The numeric policy version used - explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report. MUST INCLUDE a note that the transaction was escalated and manually reviewed/approved by a human auditor. Ensure all fields are accurate based on the context variables provided.</p>"
+            }
+          ],
+          "llmEnableMemory": false,
+          "llmReturnResponseAs": "jsonStructuredOutput",
+          "llmStructuredOutput": [
+            {
+              "key": "risk_rating",
+              "type": "string",
+              "description": "LOW, MEDIUM, HIGH, or CRITICAL based on the score."
+            },
+            {
+              "key": "risk_score",
+              "type": "number",
+              "description": "Numeric score (0-100) from the riskResult state."
+            },
+            {
+              "key": "flags_detected",
+              "type": "jsonArray",
+              "description": "Array of flag objects found during the multi-agent checks."
+            },
+            {
+              "key": "recommended_action",
+              "type": "string",
+              "description": "Either AUTO_APPROVE or ESCALATE_TO_HUMAN."
+            },
+            {
+              "key": "citation",
+              "type": "string",
+              "description": "Policy/SOP sections used for verification."
+            },
+            {
+              "key": "policy_version_applied",
+              "type": "number",
+              "description": "Active procurement policy version number."
+            },
+            {
+              "key": "explanation",
+              "type": "string",
+              "description": "The full human-readable Markdown AUTOMATED AUDIT PACK."
+            }
+          ],
+          "llmUpdateState": "",
+          "llmModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "llmModel": "chatLitellm"
+          },
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "llmAgentflow_2-output-llmAgentflow",
+            "label": "LLM",
+            "name": "llmAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 253,
+      "height": 72,
+      "positionAbsolute": {
+        "x": 1930.2554895815515,
+        "y": -63.15729140443261
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "agentAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": 741.71494342602,
+        "y": 585.3814958135665
+      },
+      "data": {
+        "id": "agentAgentflow_0",
+        "label": "Phase 2C: Vendor Intelligence",
+        "version": 1,
+        "name": "agentAgentflow",
+        "type": "Agent",
+        "color": "#4DD0E1",
+        "baseClasses": [
+          "Agent"
+        ],
+        "category": "Agent Flows",
+        "description": "Dynamically choose and utilize tools during runtime, enabling multi-step reasoning",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "agentModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "agentAgentflow_0-input-agentModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "agentMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "generateInstruction": true,
+                "rows": 4
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentMessages-array",
+            "display": true
+          },
+          {
+            "label": "Tools",
+            "name": "agentTools",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Tool",
+                "name": "agentSelectedTool",
+                "type": "asyncOptions",
+                "loadMethod": "listTools",
+                "loadConfig": true
+              },
+              {
+                "label": "Require Human Input",
+                "name": "agentSelectedToolRequiresHumanInput",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentTools-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Document Stores)",
+            "name": "agentKnowledgeDocumentStores",
+            "type": "array",
+            "array": [
+              {
+                "label": "Document Store",
+                "name": "documentStore",
+                "type": "asyncOptions",
+                "loadMethod": "listStores"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "docStoreDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentKnowledgeDocumentStores-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Vector Embeddings)",
+            "name": "agentKnowledgeVSEmbeddings",
+            "type": "array",
+            "array": [
+              {
+                "label": "Vector Store",
+                "name": "vectorStore",
+                "type": "asyncOptions",
+                "loadMethod": "listVectorStores",
+                "loadConfig": true
+              },
+              {
+                "label": "Embedding Model",
+                "name": "embeddingModel",
+                "type": "asyncOptions",
+                "loadMethod": "listEmbeddings",
+                "loadConfig": true
+              },
+              {
+                "label": "Knowledge Name",
+                "name": "knowledgeName",
+                "type": "string"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "knowledgeDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentKnowledgeVSEmbeddings-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "agentEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "agentMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_0-input-agentMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "agentMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "agentMemoryType": "windowSize"
+            },
+            "id": "agentAgentflow_0-input-agentMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "agentMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "agentMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "agentAgentflow_0-input-agentMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "agentUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_0-input-agentUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "agentReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "agentAgentflow_0-input-agentReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "agentUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "agentModel": "chatLitellm",
+          "agentMessages": [
+            {
+              "role": "system",
+              "content": "<p>Active Policy / SOP Rules: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_data\" data-label=\"$flow.state.policy_data\">{{ $flow.state.policy_data }}</span> </p><p>Transaction data: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> </p><p>You are the Vendor Intelligence &amp; Forensics Agent. Think step-by-step:</p><p>STEP 1 — Shell Company Detection:</p><p>- If shell_risk_score &gt; 75: flag as CRITICAL \"High Shell Company Risk (score: [value])\"</p><p>- If shell_risk_score &gt; 50: flag as HIGH \"Elevated Shell Company Risk (score: [value])\"</p><p>- If shared_director is not NULL: flag as HIGH \"Shared Director with Another Entity: [name]\"</p><p>- If shared_ip_address is not NULL: flag as MEDIUM \"Shared IP Address Detected: [ip]\"</p><p>STEP 2 — Vendor Risk Profile:</p><p>- If vendor_risk_rating = 'HIGH' or 'CRITICAL': flag as HIGH \"High-Risk Vendor Profile\"</p><p>- If risk_score_numeric &gt; 70: flag as HIGH \"Vendor Risk Score Exceeds Threshold\"</p><p>- For IT vendors (vendor_category = 'IT Services'): shell_risk_score must be &lt; 50 per IT policy — flag as HIGH if &gt;= 50</p><p>STEP 3 — Timing &amp; Behavioral Anomalies:</p><p>- Flag transactions dated on weekends (Saturday=6, Sunday=0)</p><p>- Flag invoices with suspiciously round amounts (e.g., exactly 50000, 100000, 500000)</p><p>- Note any patterns suggesting invoice splitting (same vendor, same day, similar amounts)</p><p>STEP 4 — Vendor Search (use your search tool if available):</p><p>- Look up the vendor_name for fraud news, regulatory sanctions, or negative press</p><p>- Flag any findings as MEDIUM or HIGH based on severity</p><p>STEP 5 — Output:</p><p>JSON array of flags, each with: Flag Type, Severity, Evidence, Transaction ID.</p><p>If no issues: return [].</p><p></p>"
+            }
+          ],
+          "agentTools": [
+            {
+              "agentSelectedTool": "customTool",
+              "agentSelectedToolRequiresHumanInput": "",
+              "agentSelectedToolConfig": {
+                "selectedTool": "b261ae4d-c858-4b31-a58d-e95b31c72d06",
+                "returnDirect": "",
+                "customToolName": "",
+                "customToolDesc": "",
+                "customToolSchema": "",
+                "customToolFunc": "",
+                "agentSelectedTool": "customTool"
+              }
+            }
+          ],
+          "agentKnowledgeDocumentStores": [],
+          "agentKnowledgeVSEmbeddings": "",
+          "agentEnableMemory": true,
+          "agentReturnResponseAs": "userMessage",
+          "agentUpdateState": [
+            {
+              "key": "flags2C",
+              "value": "{{ output }}"
+            }
+          ],
+          "agentModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "agentModel": "chatLitellm"
+          },
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "agentAgentflow_0-output-agentAgentflow",
+            "label": "Agent",
+            "name": "agentAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 262,
+      "height": 100,
+      "positionAbsolute": {
+        "x": 741.71494342602,
+        "y": 585.3814958135665
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "agentAgentflow_2",
+      "type": "agentFlow",
+      "position": {
+        "x": 745.5864720523582,
+        "y": 453.7348778004769
+      },
+      "data": {
+        "id": "agentAgentflow_2",
+        "label": "Phase 2B: Tax & Identity",
+        "version": 1,
+        "name": "agentAgentflow",
+        "type": "Agent",
+        "color": "#4DD0E1",
+        "baseClasses": [
+          "Agent"
+        ],
+        "category": "Agent Flows",
+        "description": "Dynamically choose and utilize tools during runtime, enabling multi-step reasoning",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "agentModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "agentAgentflow_2-input-agentModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "agentMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "generateInstruction": true,
+                "rows": 4
+              }
+            ],
+            "id": "agentAgentflow_2-input-agentMessages-array",
+            "display": true
+          },
+          {
+            "label": "Tools",
+            "name": "agentTools",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Tool",
+                "name": "agentSelectedTool",
+                "type": "asyncOptions",
+                "loadMethod": "listTools",
+                "loadConfig": true
+              },
+              {
+                "label": "Require Human Input",
+                "name": "agentSelectedToolRequiresHumanInput",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "id": "agentAgentflow_2-input-agentTools-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Document Stores)",
+            "name": "agentKnowledgeDocumentStores",
+            "type": "array",
+            "array": [
+              {
+                "label": "Document Store",
+                "name": "documentStore",
+                "type": "asyncOptions",
+                "loadMethod": "listStores"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "docStoreDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_2-input-agentKnowledgeDocumentStores-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Vector Embeddings)",
+            "name": "agentKnowledgeVSEmbeddings",
+            "type": "array",
+            "array": [
+              {
+                "label": "Vector Store",
+                "name": "vectorStore",
+                "type": "asyncOptions",
+                "loadMethod": "listVectorStores",
+                "loadConfig": true
+              },
+              {
+                "label": "Embedding Model",
+                "name": "embeddingModel",
+                "type": "asyncOptions",
+                "loadMethod": "listEmbeddings",
+                "loadConfig": true
+              },
+              {
+                "label": "Knowledge Name",
+                "name": "knowledgeName",
+                "type": "string"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "knowledgeDescription",
+                "type": "string",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_2-input-agentKnowledgeVSEmbeddings-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "agentEnableMemory",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "agentAgentflow_2-input-agentEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "agentMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_2-input-agentMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "agentMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "show": {
+              "agentMemoryType": "windowSize"
+            },
+            "id": "agentAgentflow_2-input-agentMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "agentMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "show": {
+              "agentMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "agentAgentflow_2-input-agentMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "agentUserMessage",
+            "type": "string",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_2-input-agentUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "agentReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "agentAgentflow_2-input-agentReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "agentUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "agentAgentflow_2-input-agentUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "agentModel": "chatLitellm",
+          "agentMessages": [
+            {
+              "role": "system",
+              "content": "<p>Active Policy / SOP Rules: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_data\" data-label=\"$flow.state.policy_data\">{{ $flow.state.policy_data }}</span> </p><p>Transaction data: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> </p><p>You are the Tax &amp; Identity Compliance Agent. Think step-by-step:</p><p>STEP 1 — Duplicate Invoice Detection:</p><p>- Check if invoice_number appears more than once for the same vendor_id</p><p>- If the invoice_number from this transaction matches any known pattern of duplication: flag as CRITICAL \"Duplicate Invoice Number\"</p><p>- Look at the invoice_number field specifically</p><p>STEP 2 — GSTIN Format Validation:</p><p>- GSTIN must be exactly 15 characters</p><p>- First 2 chars must be a valid state code (01–37)</p><p>- If invoice_gstin format is invalid: flag as HIGH \"Invalid GSTIN Format\"</p><p>- Compare invoice_gstin vs official_gstin from vendor_master: if mismatch → flag as CRITICAL \"GSTIN Mismatch — ITC at Risk\"</p><p>- If gstin_status = 'Suspended' or 'Invalid': flag as HIGH</p><p>STEP 3 — Blacklist &amp; KYC:</p><p>- If blacklisted = TRUE: flag as CRITICAL \"Blacklisted Vendor — Transaction Prohibited\"</p><p>- If kyc_status = 'Expired' or 'Rejected': flag as HIGH \"KYC Failure\"</p><p>- If kyc_status = 'Pending' and invoice_amount &gt; 100000: flag as MEDIUM \"High-Value Transaction with Unverified KYC\"</p><p>STEP 4 — PAN Compliance:</p><p>- If pan_number is missing (null/empty): flag as MEDIUM \"Missing PAN Number\"</p><p>- PAN must be 10 chars alphanumeric (AAAAA9999A pattern)</p><p>STEP 5 — Output:</p><p>JSON array of flags, each with: Flag Type, Severity, Evidence, Transaction ID.</p><p>If no issues: return [].</p><p></p>"
+            }
+          ],
+          "agentTools": [
+            {
+              "agentSelectedTool": "customTool",
+              "agentSelectedToolRequiresHumanInput": "",
+              "agentSelectedToolConfig": {
+                "selectedTool": "147d70a4-e77b-4064-93fe-5ecf99d88915",
+                "returnDirect": "",
+                "customToolName": "",
+                "customToolDesc": "",
+                "customToolSchema": "",
+                "customToolFunc": "",
+                "agentSelectedTool": "customTool"
+              }
+            }
+          ],
+          "agentKnowledgeDocumentStores": [],
+          "agentKnowledgeVSEmbeddings": "",
+          "agentEnableMemory": true,
+          "agentReturnResponseAs": "assistantMessage",
+          "agentUpdateState": [
+            {
+              "key": "flags2B",
+              "value": "{{ output }}"
+            }
+          ],
+          "agentModelConfig": {
+            "credential": "",
+            "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
+            "modelName": "qwen3.5-35b-hacksplosion",
+            "temperature": 0.9,
+            "streaming": true,
+            "maxTokens": "",
+            "topP": "",
+            "timeout": "",
+            "allowImageUploads": "",
+            "imageResolution": "low",
+            "modelOptions": "",
+            "agentModel": "chatLitellm"
+          },
+          "undefined": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "agentAgentflow_2-output-agentAgentflow",
+            "label": "Agent",
+            "name": "agentAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 253,
+      "height": 100,
+      "positionAbsolute": {
+        "x": 745.5864720523582,
+        "y": 453.7348778004769
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "customFunctionAgentflow_policy",
+      "type": "agentFlow",
+      "position": {
+        "x": 426,
+        "y": -200
+      },
+      "data": {
+        "id": "customFunctionAgentflow_policy",
+        "label": "Policy Extractor",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Fetches active SOPs from company_policies table",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_policy-input-customFunctionInputVariables-array",
+            "display": true
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "description": "The function to execute.",
+            "id": "customFunctionAgentflow_policy-input-customFunctionJavascriptFunction-code",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "customFunctionUpdateState",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_policy-input-customFunctionUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [],
+          "customFunctionJavascriptFunction": "const https = require('https');\n\nconst connectionString = \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\";\n\nasync function fetchPolicy() {\n  return new Promise((resolve) => {\n    const postData = JSON.stringify({\n      query: \"SELECT policy_name, markdown_content, version_number, effective_date, updated_by FROM company_policies WHERE is_active = true ORDER BY version_number DESC LIMIT 1;\"\n    });\n\n    const options = {\n      hostname: 'ep-bitter-credit-a1ffz9vw.ap-southeast-1.aws.neon.tech',\n      port: 443, path: '/sql', method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n        'Neon-Connection-String': connectionString,\n        'Content-Length': Buffer.byteLength(postData)\n      }\n    };\n\n    const req = https.request(options, (res) => {\n      let body = '';\n      res.on('data', c => body += c);\n      res.on('end', () => {\n        try {\n          const parsed = JSON.parse(body);\n          const rows = parsed.rows || parsed;\n          if (rows && rows.length > 0) {\n            const policy = rows[0];\n            // Return markdown, version, id, and name as a combined JSON\n            resolve(JSON.stringify({\n              policy_markdown: policy.markdown_content,\n              policy_version: policy.version_number,\n              policy_id: policy.policy_id,\n              policy_name: policy.policy_name\n            }, null, 2));\n          } else {\n            resolve(JSON.stringify({ policy_markdown: \"No active policy found.\", policy_version: \"N/A\" }));\n          }\n        } catch(e) {\n          resolve(JSON.stringify({ policy_markdown: \"Policy fetch failed: \" + e.message, policy_version: \"N/A\" }));\n        }\n      });\n    });\n\n    req.on('error', e => resolve(JSON.stringify({ policy_markdown: \"Network error: \" + e.message, policy_version: \"N/A\" })));\n    req.write(postData);\n    req.end();\n  });\n}\n\nconst result = JSON.parse(await fetchPolicy());\n// Store all keys separately so agents can use them as flow state variables\nreturn JSON.stringify(result);",
+          "customFunctionUpdateState": [
+            {
+              "key": "policy_data",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+            }
+          ]
+        },
+        "outputAnchors": [
+          {
+            "id": "customFunctionAgentflow_policy-output-customFunctionAgentflow",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 172,
+      "height": 66,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 426,
+        "y": -200
+      },
+      "dragging": false
+    },
+    {
+      "id": "customFunctionAgentflow_2",
+      "position": {
+        "x": 1208.9890979464647,
+        "y": 568.9852929136937
+      },
+      "data": {
+        "id": "customFunctionAgentflow_2",
+        "label": "Result Aggregator",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Execute custom function",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "description": "Input variables can be used in the function with prefix $. For example: $foo",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_2-input-customFunctionInputVariables-array",
+            "display": true
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "codeExample": "/*\n* You can use any libraries imported in Flowise\n* You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid\n* You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state\n* You can get custom variables: $vars.<variable-name>\n* Must return a string value at the end of function\n*/\n\nconst fetch = require('node-fetch');\nconst url = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true';\nconst options = {\n    method: 'GET',\n    headers: {\n        'Content-Type': 'application/json'\n    }\n};\ntry {\n    const response = await fetch(url, options);\n    const text = await response.text();\n    return text;\n} catch (error) {\n    console.error(error);\n    return '';\n}",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string.",
+            "id": "customFunctionAgentflow_2-input-customFunctionJavascriptFunction-code",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "customFunctionUpdateState",
+            "description": "Update runtime state during the execution of the workflow",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_2-input-customFunctionUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "flags_2a",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.flags2A\" data-label=\"$flow.state.flags2A\">{{ $flow.state.flags2A }}</span> </p>"
+            },
+            {
+              "variableName": "flags_2b",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.flags2B\" data-label=\"$flow.state.flags2B\">{{ $flow.state.flags2B }}</span> </p>"
+            },
+            {
+              "variableName": "flags_2c",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.flags2C\" data-label=\"$flow.state.flags2C\">{{ $flow.state.flags2C }}</span> </p>"
+            },
+            {
+              "variableName": "policy_data",
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_data\" data-label=\"$flow.state.policy_data\">{{ $flow.state.policy_data }}</span> </p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "try {\n    const parseFlags = (str) => {\n        try {\n            const match = String(str).match(/\\[[\\s\\S]*\\]/);\n            if (match) return JSON.parse(match[0]);\n            return [];\n        } catch(e) { return []; }\n    };\n\n    let allFlags = [\n        ...parseFlags($flags_2a),\n        ...parseFlags($flags_2b),\n        ...parseFlags($flags_2c)\n    ];\n\n    let highestSeverity = \"NONE\";\n    const severityRank = { \"CRITICAL\": 4, \"HIGH\": 3, \"MEDIUM\": 2, \"LOW\": 1, \"NONE\": 0 };\n\n    allFlags.forEach(f => {\n        let s = String(f.Severity || f.severity || \"LOW\").toUpperCase();\n        if (severityRank[s] > severityRank[highestSeverity]) {\n            highestSeverity = s;\n        }\n    });\n\n    // Parse policy_version from the policy_data JSON object\n    let polVers = 1.0;\n    try {\n        const pd = typeof $policy_data === 'string' ? JSON.parse($policy_data) : $policy_data;\n        polVers = parseFloat(pd.policy_version) || 1.0;\n    } catch(e) { polVers = 1.0; }\n\n    const result = {\n        risk_rating: highestSeverity === \"NONE\" ? \"LOW\" : highestSeverity,\n        flags_detected: allFlags,\n        policy_version_applied: polVers\n    };\n\n    return JSON.stringify(result);\n} catch(err) {\n    return JSON.stringify({ risk_rating: \"ERROR\", flags_detected: [], policy_version_applied: 1.0 });\n}\n",
+          "customFunctionUpdateState": [
+            {
+              "key": "controlFlags",
+              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+            }
+          ]
+        },
+        "outputAnchors": [
+          {
+            "id": "customFunctionAgentflow_2-output-customFunctionAgentflow",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "type": "agentFlow",
+      "width": 187,
+      "height": 66,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 1208.9890979464647,
+        "y": 568.9852929136937
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "webhook_ctrl_0",
+      "sourceHandle": "webhook_ctrl_0-output-webhook_ctrl_0",
+      "target": "llmAgentflow_0",
+      "targetHandle": "llmAgentflow_0",
+      "type": "agentFlow",
+      "id": "edge-controls-to-verify_p2"
+    },
+    {
+      "source": "llmAgentflow_0",
+      "sourceHandle": "llmAgentflow_0-output-llmAgentflow",
+      "target": "webhook_veri_0",
+      "targetHandle": "webhook_veri_0",
+      "type": "agentFlow",
+      "id": "edge-verify-to-score_p1"
+    },
+    {
+      "source": "webhook_veri_0",
+      "sourceHandle": "webhook_veri_0-output-webhook_veri_0",
+      "target": "customFunctionAgentflow_0",
+      "targetHandle": "customFunctionAgentflow_0",
+      "type": "agentFlow",
+      "id": "edge-verify-to-score_p2"
+    },
+    {
+      "source": "customFunctionAgentflow_0",
+      "sourceHandle": "customFunctionAgentflow_0-output-customFunctionAgentflow",
+      "target": "webhook_scor_0",
+      "targetHandle": "webhook_scor_0",
+      "type": "agentFlow",
+      "id": "edge-score-to-condition_p1"
+    },
+    {
+      "source": "webhook_scor_0",
+      "sourceHandle": "webhook_scor_0-output-webhook_scor_0",
+      "target": "conditionAgentAgentflow_0",
+      "targetHandle": "conditionAgentAgentflow_0",
+      "type": "agentFlow",
+      "id": "edge-score-to-condition_p2"
+    },
+    {
+      "source": "humanInputAgentflow_0",
+      "sourceHandle": "humanInputAgentflow_0-output-1",
+      "target": "loopAgentflow_0",
+      "targetHandle": "loopAgentflow_0",
+      "type": "agentFlow",
+      "id": "edge-human-rejected-to-loop",
+      "selected": false
+    },
+    {
+      "source": "conditionAgentAgentflow_0",
+      "sourceHandle": "conditionAgentAgentflow_0-output-1",
+      "target": "llmAgentflow_1",
+      "targetHandle": "llmAgentflow_1",
+      "data": {
+        "sourceColor": "#ff8fab",
+        "targetColor": "#64B5F6",
+        "edgeLabel": "1",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "conditionAgentAgentflow_0-conditionAgentAgentflow_0-output-1-llmAgentflow_1-llmAgentflow_1"
+    },
+    {
+      "source": "conditionAgentAgentflow_0",
+      "sourceHandle": "conditionAgentAgentflow_0-output-0",
+      "target": "humanInputAgentflow_0",
+      "targetHandle": "humanInputAgentflow_0",
+      "data": {
+        "sourceColor": "#ff8fab",
+        "targetColor": "#6E6EFD",
+        "edgeLabel": "0",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "conditionAgentAgentflow_0-conditionAgentAgentflow_0-output-0-humanInputAgentflow_0-humanInputAgentflow_0"
+    },
+    {
+      "source": "startAgentflow_0",
+      "sourceHandle": "startAgentflow_0-output-startAgentflow",
+      "target": "customFunctionAgentflow_1",
+      "targetHandle": "customFunctionAgentflow_1",
+      "data": {
+        "sourceColor": "#7EE787",
+        "targetColor": "#E4B7FF",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-customFunctionAgentflow_1-customFunctionAgentflow_1"
+    },
+    {
+      "source": "humanInputAgentflow_0",
+      "sourceHandle": "humanInputAgentflow_0-output-0",
+      "target": "llmAgentflow_2",
+      "targetHandle": "llmAgentflow_2",
+      "data": {
+        "sourceColor": "#6E6EFD",
+        "targetColor": "#64B5F6",
+        "edgeLabel": "proceed",
+        "isHumanInput": true
+      },
+      "type": "agentFlow",
+      "id": "humanInputAgentflow_0-humanInputAgentflow_0-output-0-llmAgentflow_2-llmAgentflow_2"
+    },
+    {
+      "source": "customFunctionAgentflow_1",
+      "sourceHandle": "customFunctionAgentflow_1-output-customFunctionAgentflow",
+      "target": "customFunctionAgentflow_policy",
+      "targetHandle": "customFunctionAgentflow_policy",
+      "data": {
+        "sourceColor": "#E4B7FF",
+        "targetColor": "#E4B7FF",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "e_extractor_to_policy"
+    },
+    {
+      "source": "customFunctionAgentflow_policy",
+      "sourceHandle": "customFunctionAgentflow_policy-output-customFunctionAgentflow",
+      "target": "webhook_extr_0",
+      "targetHandle": "webhook_extr_0",
+      "data": {
+        "sourceColor": "#E4B7FF",
+        "targetColor": "#E4B7FF",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "e_policy_to_webhook_extr"
+    },
+    {
+      "source": "webhook_extr_0",
+      "sourceHandle": "webhook_extr_0-output-webhook_extr_0",
+      "target": "agentAgentflow_1",
+      "targetHandle": "agentAgentflow_1",
+      "data": {
+        "sourceColor": "#004F59",
+        "targetColor": "#4DD0E1",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "webhook_extr_0-webhook_extr_0-output-webhook_extr_0-agentAgentflow_1-agentAgentflow_1"
+    },
+    {
+      "source": "webhook_extr_0",
+      "sourceHandle": "webhook_extr_0-output-webhook_extr_0",
+      "target": "agentAgentflow_2",
+      "targetHandle": "agentAgentflow_2",
+      "data": {
+        "sourceColor": "#004F59",
+        "targetColor": "#4DD0E1",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "webhook_extr_0-webhook_extr_0-output-webhook_extr_0-agentAgentflow_2-agentAgentflow_2"
+    },
+    {
+      "source": "webhook_extr_0",
+      "sourceHandle": "webhook_extr_0-output-webhook_extr_0",
+      "target": "agentAgentflow_0",
+      "targetHandle": "agentAgentflow_0",
+      "data": {
+        "sourceColor": "#004F59",
+        "targetColor": "#4DD0E1",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "webhook_extr_0-webhook_extr_0-output-webhook_extr_0-agentAgentflow_0-agentAgentflow_0"
+    },
+    {
+      "source": "agentAgentflow_0",
+      "sourceHandle": "agentAgentflow_0-output-agentAgentflow",
+      "target": "customFunctionAgentflow_2",
+      "targetHandle": "customFunctionAgentflow_2",
+      "data": {
+        "sourceColor": "#4DD0E1",
+        "targetColor": "#E4B7FF",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "agentAgentflow_0-agentAgentflow_0-output-agentAgentflow-customFunctionAgentflow_2-customFunctionAgentflow_2"
+    },
+    {
+      "source": "customFunctionAgentflow_2",
+      "sourceHandle": "customFunctionAgentflow_2-output-customFunctionAgentflow",
+      "target": "webhook_ctrl_0",
+      "targetHandle": "webhook_ctrl_0",
+      "data": {
+        "sourceColor": "#E4B7FF",
+        "targetColor": "#004F59",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "customFunctionAgentflow_2-customFunctionAgentflow_2-output-customFunctionAgentflow-webhook_ctrl_0-webhook_ctrl_0"
+    }
+  ]
+}
