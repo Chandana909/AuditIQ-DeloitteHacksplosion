@@ -1298,7 +1298,7 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "loopBackToNode": "webhook_extr_0-Webhook: extraction",
+          "loopBackToNode": "customFunctionAgentflow_1-Phase 1: Data Extractor",
           "maxLoopCount": 3
         },
         "outputAnchors": [],
@@ -1737,11 +1737,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.extractedData }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);",
@@ -1823,11 +1823,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.controlFlags }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.controlFlags\" data-label=\"$flow.state.controlFlags\">{{ $flow.state.controlFlags }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);",
@@ -1909,11 +1909,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.verifiedFlags }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);"
@@ -1994,11 +1994,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.riskResult }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.riskResult\" data-label=\"$flow.state.riskResult\">{{ $flow.state.riskResult }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);"
@@ -2750,6 +2750,24 @@
                 "customToolSchema": "",
                 "customToolFunc": "",
                 "agentSelectedTool": "customTool"
+              }
+            },
+            {
+              "agentSelectedTool": "exaSearch",
+              "agentSelectedToolRequiresHumanInput": "",
+              "agentSelectedToolConfig": {
+                "description": "A wrapper around Exa Search. Input should be an Exa-optimized query. Output is a JSON array of the query results",
+                "numResults": "",
+                "type": "",
+                "useAutoprompt": "",
+                "category": "",
+                "includeDomains": "",
+                "excludeDomains": "",
+                "startCrawlDate": "",
+                "endCrawlDate": "",
+                "startPublishedDate": "",
+                "endPublishedDate": "",
+                "agentSelectedTool": "exaSearch"
               }
             }
           ],

@@ -191,7 +191,7 @@
         "outputs": {},
         "selected": false
       },
-      "width": 111,
+      "width": 103,
       "height": 66,
       "positionAbsolute": {
         "x": 100,
@@ -512,6 +512,24 @@
                 "messageActions": "[\"sendMessage\"]",
                 "agentSelectedTool": "gmail"
               }
+            },
+            {
+              "agentSelectedTool": "exaSearch",
+              "agentSelectedToolRequiresHumanInput": "",
+              "agentSelectedToolConfig": {
+                "description": "A wrapper around Exa Search. Input should be an Exa-optimized query. Output is a JSON array of the query results",
+                "numResults": "",
+                "type": "",
+                "useAutoprompt": "",
+                "category": "",
+                "includeDomains": "",
+                "excludeDomains": "",
+                "startCrawlDate": "",
+                "endCrawlDate": "",
+                "startPublishedDate": "",
+                "endPublishedDate": "",
+                "agentSelectedTool": "exaSearch"
+              }
             }
           ],
           "agentKnowledgeDocumentStores": "",
@@ -547,8 +565,8 @@
         "selected": false
       },
       "type": "agentFlow",
-      "width": 288,
-      "height": 104,
+      "width": 253,
+      "height": 100,
       "selected": false,
       "dragging": false,
       "positionAbsolute": {

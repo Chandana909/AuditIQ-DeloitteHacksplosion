@@ -1088,14 +1088,14 @@
         "inputAnchors": [],
         "inputs": {
           "conditionAgentModel": "chatLitellm",
-          "conditionAgentInstructions": "<p>Analyze the provided JSON risk data. If the riskLevel is 'LOW' or 'MEDIUM' and requiresHumanReview is 'false', select the Auto-approve scenario. If riskLevel is 'HIGH' or 'CRITICAL', select the Human Review scenario.</p>",
+          "conditionAgentInstructions": "<p>Analyze the provided JSON risk data. If the riskLevel is 'LOW' or 'MEDIUM' and requiresHumanReview is 'false', select scenario index 1 (Auto-approve). If riskLevel is 'HIGH' or 'CRITICAL', or requiresHumanReview is true, select scenario index 0 (Human Review).</p>",
           "conditionAgentInput": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"customFunctionAgentflow_0\" data-label=\"customFunctionAgentflow_0\">{{ customFunctionAgentflow_0 }}</span> </p>",
           "conditionAgentScenarios": [
             {
-              "scenario": "Select this route ONLY IF the parsed riskLevel is CRITICAL or HIGH, or requiresHumanReview is explicitly true."
+              "scenario": "Index 0: CRITICAL or HIGH riskLevel, or requiresHumanReview is true. Route to HITL."
             },
             {
-              "scenario": "Select this route ONLY IF the parsed riskLevel is LOW or MEDIUM, and requiresHumanReview is false."
+              "scenario": "Index 1: LOW or MEDIUM riskLevel, and requiresHumanReview is false. Route to Auto-approve."
             }
           ],
           "conditionAgentModelConfig": {
@@ -1227,7 +1227,7 @@
         "inputAnchors": [],
         "inputs": {
           "humanInputDescriptionType": "fixed",
-          "humanInputDescription": "<p>{ \"type\": \"HITL_REQUIRED\", \"riskResult\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.riskResult\" data-label=\"$flow.state.riskResult\">{{ $flow.state.riskResult }}</span> , \"verifiedFlags\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> , \"extractedData\": <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> }</p>",
+          "humanInputDescription": "{\n  \"type\": \"HITL_REQUIRED\",\n  \"riskResult\": <span class=\"variable\" data-type=\"mention\" data-id=\"$state.riskResult\" data-label=\"$state.riskResult\">{{ $state.riskResult }}</span>,\n  \"verifiedFlags\": <span class=\"variable\" data-type=\"mention\" data-id=\"$state.verifiedFlags\" data-label=\"$state.verifiedFlags\">{{ $state.verifiedFlags }}</span>,\n  \"extractedData\": <span class=\"variable\" data-type=\"mention\" data-id=\"$state.extractedData\" data-label=\"$state.extractedData\">{{ $state.extractedData }}</span>\n}",
           "humanInputEnableFeedback": true,
           "undefined": ""
         },
@@ -1547,7 +1547,7 @@
           "llmMessages": [
             {
               "role": "system",
-              "content": "You are the Audit Report Generator. Create a JSON response containing the audit metadata and report.\n\nFields to populate:\n- risk_rating: LOW, MEDIUM, HIGH, or CRITICAL\n- risk_score: The calculated numeric risk score\n- flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence')\n- recommended_action: AUTO_APPROVE or ESCALATE_TO_HUMAN\n- citation: Relevant SOP sections cited\n- policy_version_applied: The numeric policy version used\n- explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report including transaction tables, summary, and evidence chain.\n\nEnsure all fields are accurate based on the context variables provided (extractedData, controlFlags, riskResult, etc.)."
+              "content": "You are the Audit Report Generator for the AUTO-APPROVE path.\nCreate a JSON response containing the audit metadata and report.\n\nFields to populate:\n- risk_rating: LOW, MEDIUM, HIGH, or CRITICAL based on the score\n- risk_score: The calculated numeric risk score\n- flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence')\n- recommended_action: STRICTLY output \"AUTO_APPROVE\"\n- citation: Relevant SOP sections cited\n- policy_version_applied: The numeric policy version used\n- explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report including transaction tables, summary, and evidence chain.\n\nEnsure all fields are accurate based on the context variables provided."
             }
           ],
           "llmEnableMemory": true,
@@ -2369,7 +2369,7 @@
           "llmMessages": [
             {
               "role": "system",
-              "content": "<p>You are the Audit Report Generator for the ESCALATED path. Create a JSON response containing the audit metadata and report. Note: A human auditor has already reviewed this transaction and decided to APPROVE/PROCEED. Fields to populate: - risk_rating: LOW, MEDIUM, HIGH, or CRITICAL based on the score - risk_score: The calculated numeric risk score - flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence') - recommended_action: STRICTLY output \"ESCALATE_TO_HUMAN\" - citation: Relevant SOP sections cited - policy_version_applied: The numeric policy version used - explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report. MUST INCLUDE a note that the transaction was escalated and manually reviewed/approved by a human auditor. Ensure all fields are accurate based on the context variables provided.</p>"
+              "content": "You are the Audit Report Generator for the ESCALATED path.\nCreate a JSON response containing the audit metadata and report.\nNote: A human auditor has already reviewed this transaction and decided to APPROVE/PROCEED.\n\nFields to populate:\n- risk_rating: LOW, MEDIUM, HIGH, or CRITICAL based on the score\n- risk_score: The calculated numeric risk score\n- flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence')\n- recommended_action: STRICTLY output \"ESCALATE_TO_HUMAN\"\n- citation: Relevant SOP sections cited\n- policy_version_applied: The numeric policy version used\n- explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report. MUST INCLUDE a note that the transaction was escalated and manually reviewed/approved by a human auditor.\n\nEnsure all fields are accurate based on the context variables provided."
             }
           ],
           "llmEnableMemory": true,

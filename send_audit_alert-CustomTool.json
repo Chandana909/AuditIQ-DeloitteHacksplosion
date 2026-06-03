@@ -1,0 +1,9 @@
+{
+  "name": "send_audit_alert",
+  "description": "Use this tool to send high-risk audit violations to the real-time QStash monitoring stream. It triggers an external alert for fraud or compliance exceptions.",
+  "color": "linear-gradient(rgb(178,19,23), rgb(40,133,5))",
+  "iconSrc": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/upstash.svg",
+  "schema": "[{\"id\":1,\"property\":\"event\",\"description\":\"Violation Name\",\"type\":\"string\",\"required\":true},{\"id\":2,\"property\":\"severity\",\"description\":\"Risk Level\",\"type\":\"string\",\"required\":true},{\"id\":3,\"property\":\"details\",\"description\":\"Audit Details\",\"type\":\"string\",\"required\":true}]",
+  "func": "const https = require('https');\n\nasync function script(input) {\n    const alertData = JSON.stringify({\n        event: input.event,\n        severity: input.severity,\n        details: input.details,\n        timestamp: new Date().toISOString()\n    });\n\n    const options = {\n        hostname: 'qstash-eu-central-1.upstash.io',\n        port: 443,\n        path: '/v2/publish/https://webhook.site/your-id-here', \n        method: 'POST',\n        headers: {\n            'Authorization': 'Bearer eyJVc2VySUQiOiIzNjVhNzUyMi04NmExLTQ0MDktYmZlMC01ZjgzNDI3M2RlNDciLCJQYXNzd29yZCI6ImQzMDA4NjUyZTgzMDRmYzBhNDYwNGJmMGY5NGEzNGUwIn0=',\n            'Content-Type': 'application/json',\n            'Content-Length': Buffer.byteLength(alertData)\n        }\n    };\n\n    return new Promise((resolve) => {\n        const req = https.request(options, (res) => {\n            let body = '';\n            res.on('data', c => body += c);\n            res.on('end', () => resolve({ status: \"Success\", details: body }));\n        });\n        req.on('error', e => resolve({ status: \"Error\", msg: e.message }));\n        req.write(alertData);\n        req.end();\n    });\n}",
+  "workspaceId": "16accf17-ab67-4be2-b196-8f0db2b94aae"
+}

@@ -560,7 +560,7 @@
             }
           ],
           "agentModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -873,7 +873,7 @@
             }
           ],
           "llmModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -1099,10 +1099,10 @@
             }
           ],
           "conditionAgentModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
-            "temperature": "0.1",
+            "temperature": 0.9,
             "streaming": true,
             "maxTokens": "",
             "topP": "",
@@ -1298,7 +1298,7 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "loopBackToNode": "webhook_extr_0-Webhook: extraction",
+          "loopBackToNode": "customFunctionAgentflow_1-Phase 1: Data Extractor",
           "maxLoopCount": 3
         },
         "outputAnchors": [],
@@ -1591,7 +1591,7 @@
           ],
           "llmUpdateState": "",
           "llmModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -1604,8 +1604,7 @@
             "modelOptions": "",
             "llmModel": "chatLitellm"
           },
-          "undefined": "",
-          "llmUserMessage": "<p></p>"
+          "undefined": ""
         },
         "outputAnchors": [
           {
@@ -1737,11 +1736,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.extractedData }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);",
@@ -1770,8 +1769,8 @@
       "id": "webhook_ctrl_0",
       "type": "agentFlow",
       "position": {
-        "x": 657.5977799958328,
-        "y": -95.10904674789643
+        "x": 775.5977799958328,
+        "y": -25.10904674789643
       },
       "data": {
         "id": "webhook_ctrl_0",
@@ -1823,11 +1822,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.controlFlags }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.controlFlags\" data-label=\"$flow.state.controlFlags\">{{ $flow.state.controlFlags }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);",
@@ -1846,8 +1845,8 @@
       "width": 193,
       "height": 66,
       "positionAbsolute": {
-        "x": 657.5977799958328,
-        "y": -95.10904674789643
+        "x": 775.5977799958328,
+        "y": -25.10904674789643
       },
       "selected": false,
       "dragging": false
@@ -1909,11 +1908,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.verifiedFlags }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.verifiedFlags\" data-label=\"$flow.state.verifiedFlags\">{{ $flow.state.verifiedFlags }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);"
@@ -1994,11 +1993,11 @@
             },
             {
               "variableName": "output",
-              "variableValue": "{{ $flow.state.riskResult }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.riskResult\" data-label=\"$flow.state.riskResult\">{{ $flow.state.riskResult }}</span> </p>"
             },
             {
               "variableName": "sessionId",
-              "variableValue": "{{ $flow.chatId }}"
+              "variableValue": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"$flow.chatId\" data-label=\"$flow.chatId\">{{ $flow.chatId }}</span> </p>"
             }
           ],
           "customFunctionJavascriptFunction": "const payload = {\n    sessionId: $sessionId,\n    phase: $phase,\n    timestamp: new Date().toISOString(),\n    status: \"completed\",\n    data: $output\n};\ntry {\n    await fetch(\"https://36ee-110-235-224-236.ngrok-free.app/api/audit-progress\", {\n        method: \"POST\",\n        headers: { \n            \"Content-Type\": \"application/json\",\n            \"ngrok-skip-browser-warning\": \"true\" \n        },\n        body: JSON.stringify(payload)\n    });\n} catch(e) { }\nreturn JSON.stringify(payload);"
@@ -2243,7 +2242,7 @@
               "llmEnableMemory": true
             },
             "id": "llmAgentflow_2-input-llmMemoryType-options",
-            "display": true
+            "display": false
           },
           {
             "label": "Window Size",
@@ -2278,7 +2277,7 @@
               "llmEnableMemory": true
             },
             "id": "llmAgentflow_2-input-llmUserMessage-string",
-            "display": true
+            "display": false
           },
           {
             "label": "Return Response As",
@@ -2372,7 +2371,7 @@
               "content": "<p>You are the Audit Report Generator for the ESCALATED path. Create a JSON response containing the audit metadata and report. Note: A human auditor has already reviewed this transaction and decided to APPROVE/PROCEED. Fields to populate: - risk_rating: LOW, MEDIUM, HIGH, or CRITICAL based on the score - risk_score: The calculated numeric risk score - flags_detected: Array of verified flags (objects with 'type', 'severity', 'evidence') - recommended_action: STRICTLY output \"ESCALATE_TO_HUMAN\" - citation: Relevant SOP sections cited - policy_version_applied: The numeric policy version used - explanation: A full, detailed, human-readable Markdown 'AUTOMATED AUDIT PACK' report. MUST INCLUDE a note that the transaction was escalated and manually reviewed/approved by a human auditor. Ensure all fields are accurate based on the context variables provided.</p>"
             }
           ],
-          "llmEnableMemory": true,
+          "llmEnableMemory": false,
           "llmReturnResponseAs": "jsonStructuredOutput",
           "llmStructuredOutput": [
             {
@@ -2413,7 +2412,7 @@
           ],
           "llmUpdateState": "",
           "llmModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -2426,8 +2425,7 @@
             "modelOptions": "",
             "llmModel": "chatLitellm"
           },
-          "undefined": "",
-          "llmUserMessage": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"conditionAgentAgentflow_0\" data-label=\"conditionAgentAgentflow_0\">{{ conditionAgentAgentflow_0 }}</span> </p>"
+          "undefined": ""
         },
         "outputAnchors": [
           {
@@ -2735,7 +2733,7 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>Active Policy / SOP Rules: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_markdown\" data-label=\"$flow.state.policy_markdown\">{{ $flow.state.policy_markdown }}</span> </p><br><p>Here is the extracted transaction data: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> <br>You are the Vendor Intelligence &amp; Forensics Agent. Your focus is behavioral patterns and anomalies. Perform the following checks: 1. VENDOR POLICY CHECK: Flag if the same vendor has &gt; 3 transactions in a single day (invoice splitting). 2. TIMING ANOMALIES: Flag transactions on weekends or holidays. 3. ROUND NUMBER ANALYSIS: Flag invoices with suspiciously round amounts (e.g., exactly 50000, 100000). 4. VENDOR RISK: Use your search tools to look up the vendor for fraud news, regulatory issues, or shell company indicators. For EACH flag found, output: Flag Type, Severity, Evidence, and Transaction ID. Output as a structured JSON array of flags. If no issues found, return [].</p>"
+              "content": "<p>Active Policy / SOP Rules: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.policy_markdown\" data-label=\"$flow.state.policy_markdown\">{{ $flow.state.policy_markdown }}</span></p><p></p><p>Here is the extracted transaction data: <span class=\"variable\" data-type=\"mention\" data-id=\"$flow.state.extractedData\" data-label=\"$flow.state.extractedData\">{{ $flow.state.extractedData }}</span> <br>You are the Vendor Intelligence &amp; Forensics Agent. Your focus is behavioral patterns and anomalies. Perform the following checks: 1. VENDOR POLICY CHECK: Flag if the same vendor has &gt; 3 transactions in a single day (invoice splitting). 2. TIMING ANOMALIES: Flag transactions on weekends or holidays. 3. ROUND NUMBER ANALYSIS: Flag invoices with suspiciously round amounts (e.g., exactly 50000, 100000). 4. VENDOR RISK: Use your search tools to look up the vendor for fraud news, regulatory issues, or shell company indicators. For EACH flag found, output: Flag Type, Severity, Evidence, and Transaction ID. Output as a structured JSON array of flags. If no issues found, return [].</p>"
             }
           ],
           "agentTools": [
@@ -2764,7 +2762,7 @@
             }
           ],
           "agentModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -3106,7 +3104,7 @@
           "agentKnowledgeDocumentStores": [],
           "agentKnowledgeVSEmbeddings": "",
           "agentEnableMemory": true,
-          "agentReturnResponseAs": "userMessage",
+          "agentReturnResponseAs": "assistantMessage",
           "agentUpdateState": [
             {
               "key": "flags2B",
@@ -3114,7 +3112,7 @@
             }
           ],
           "agentModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -3337,7 +3335,7 @@
             },
             {
               "key": "policy_version",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output\" data-label=\"output\">{{ output }}</span> </p>"
+              "value": "<p>1</p>"
             }
           ]
         },

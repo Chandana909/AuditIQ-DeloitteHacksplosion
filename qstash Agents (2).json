@@ -4,8 +4,8 @@
       "id": "startAgentflow_0",
       "type": "agentFlow",
       "position": {
-        "x": 100,
-        "y": 100
+        "x": -28.929280000000023,
+        "y": 123.37328000000002
       },
       "data": {
         "id": "startAgentflow_0",
@@ -178,7 +178,12 @@
           "formDescription": "",
           "formInputTypes": "",
           "startEphemeralMemory": "",
-          "startState": "",
+          "startState": [
+            {
+              "key": "request_type",
+              "value": ""
+            }
+          ],
           "startPersistState": ""
         },
         "outputAnchors": [
@@ -191,19 +196,129 @@
         "outputs": {},
         "selected": false
       },
-      "width": 111,
+      "width": 103,
       "height": 66,
+      "selected": false,
       "positionAbsolute": {
-        "x": 100,
-        "y": 100
+        "x": -28.929280000000023,
+        "y": 123.37328000000002
       },
-      "selected": false
+      "dragging": false
+    },
+    {
+      "id": "customFunctionAgentflow_0",
+      "position": {
+        "x": 169.69078399999995,
+        "y": 122.56716800000008
+      },
+      "data": {
+        "id": "customFunctionAgentflow_0",
+        "label": "Custom Function 0",
+        "version": 1,
+        "name": "customFunctionAgentflow",
+        "type": "CustomFunction",
+        "color": "#E4B7FF",
+        "baseClasses": [
+          "CustomFunction"
+        ],
+        "category": "Agent Flows",
+        "description": "Execute custom function",
+        "inputParams": [
+          {
+            "label": "Input Variables",
+            "name": "customFunctionInputVariables",
+            "description": "Input variables can be used in the function with prefix $. For example: $foo",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Variable Name",
+                "name": "variableName",
+                "type": "string"
+              },
+              {
+                "label": "Variable Value",
+                "name": "variableValue",
+                "type": "string",
+                "acceptVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_0-input-customFunctionInputVariables-array",
+            "display": true
+          },
+          {
+            "label": "Javascript Function",
+            "name": "customFunctionJavascriptFunction",
+            "type": "code",
+            "codeExample": "/*\n* You can use any libraries imported in Flowise\n* You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid\n* You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state\n* You can get custom variables: $vars.<variable-name>\n* Must return a string value at the end of function\n*/\n\nconst fetch = require('node-fetch');\nconst url = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true';\nconst options = {\n    method: 'GET',\n    headers: {\n        'Content-Type': 'application/json'\n    }\n};\ntry {\n    const response = await fetch(url, options);\n    const text = await response.text();\n    return text;\n} catch (error) {\n    console.error(error);\n    return '';\n}",
+            "description": "The function to execute. Must return a string or an object that can be converted to a string.",
+            "id": "customFunctionAgentflow_0-input-customFunctionJavascriptFunction-code",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "customFunctionUpdateState",
+            "description": "Update runtime state during the execution of the workflow",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys",
+                "freeSolo": true
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "customFunctionAgentflow_0-input-customFunctionUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "customFunctionInputVariables": [
+            {
+              "variableName": "requestType",
+              "variableValue": "<p>{{$vars.request_type}}</p>"
+            }
+          ],
+          "customFunctionJavascriptFunction": "const { Client } = require('pg');\n\nasync function script(input) {\n    const client = new Client({\n        connectionString: \"postgresql://neondb_owner:npg_NafhUtWPF51V@ep-bitter-credit-a1ffz9vw-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\",\n        connectionTimeoutMillis: 5000,\n    });\n\n    try {\n        await client.connect();\n        const res = await client.query(\"SELECT invoice_id, vendor_name, amount, transaction_risk FROM audit_logs WHERE transaction_risk = 'CRITICAL' LIMIT 5\");\n        await client.end();\n        return res.rows.length === 0 ? \"No data found\" : JSON.stringify(res.rows);\n    } catch (err) {\n        if (client) await client.end();\n        return \"DB_ERROR: \" + err.message;\n    }\n}",
+          "customFunctionUpdateState": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "customFunctionAgentflow_0-output-customFunctionAgentflow",
+            "label": "Custom Function",
+            "name": "customFunctionAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "type": "agentFlow",
+      "width": 193,
+      "height": 66,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 169.69078399999995,
+        "y": 122.56716800000008
+      },
+      "dragging": false
     },
     {
       "id": "agentAgentflow_0",
       "position": {
-        "x": 257.5,
-        "y": 94.5
+        "x": 493.38559999999984,
+        "y": 113.50640000000004
       },
       "data": {
         "id": "agentAgentflow_0",
@@ -500,17 +615,21 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You are the automated communication agent for an enterprise financial audit platform. Your job is to draft professional emails based on the provided JSON payload <strong>AND send them using the Gmail tool.</strong></p><p><strong>Instructions based on </strong><code>email_intent</code><strong>:</strong></p><ul><li><p><strong>If intent is </strong><code>internal_escalation</code><strong>:</strong> Draft a concise, urgent internal email to a manager. Highlight the <code>reference_id</code>, the <code>risk_score</code>, and the specific anomaly. Ask for a review on the dashboard. Use a formal but direct corporate tone.</p></li><li><p><strong>If intent is </strong><code>vendor_outreach</code><strong>: </strong>Analyze the <code>issue</code> provided. Based on standard financial audit compliance (e.g., if the issue is a GSTIN Format Violation, request a valid GSTIN certificate; if it is a Three-Way Match Failure, request a revised invoice), automatically deduce the required action. Clearly and politely instruct the vendor on how to resolve it. Draft a polite but firm external email to a vendor. State the <code>entity_name</code> and the <code>reference_id</code>. Explain the compliance issue clearly and include the <code>custom_instructions</code>. Do not mention internal risk scores.</p></li><li><p><strong>If intent is </strong><code>audit_summary</code><strong>:</strong> Draft a structured internal summary report. Use markdown tables or bullet points to make the data easy to read for executives.</p></li></ul><p><strong>Formatting &amp; Execution Rules:</strong></p><ol><li><p>Format the email body using clean HTML (e.g., <code>&lt;br&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;ul&gt;</code>) so it renders perfectly in Gmail.</p></li><li><p>Ensure the tone matches the intent.</p></li><li><p><strong>CRITICAL ACTION:</strong> Once the draft is complete, you MUST execute the <code>send_message</code> tool. Map the <code>recipient</code> from the JSON to the tool's <code>to</code> field, generate an appropriate <code>subject</code>, and pass your HTML draft into the <code>body</code> field.</p></li></ol><p><strong>Data Payload:</strong> <span class=\"variable\" data-type=\"mention\" data-id=\"question\" data-label=\"question\">{{ question }}</span></p>"
+              "content": "<p>You are the Senior Forensic Auditor. Analyze the audit data provided.</p><p>You are a Deloitte Forensic Auditor. You <strong>MUST</strong> use the <code>send_audit_alert</code> tool to publish the report once you finish the analysis. Do not just talk about it; actually trigger the tool</p><p><strong>Instructions:</strong></p><ol><li><p>Create a structured internal summary report using a Markdown table.</p></li><li><p>Use a formal corporate tone.</p></li><li><p><strong>CRITICAL ACTION:</strong> Once the report is ready, you MUST execute the <code>send_audit_alert</code> tool.</p></li></ol>"
             }
           ],
           "agentTools": [
             {
-              "agentSelectedTool": "gmail",
+              "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "gmailType": "messages",
-                "messageActions": "[\"sendMessage\"]",
-                "agentSelectedTool": "gmail"
+                "selectedTool": "76a22c17-9f8a-44e5-8067-4875860b8063",
+                "returnDirect": "",
+                "customToolName": "",
+                "customToolDesc": "",
+                "customToolSchema": "",
+                "customToolFunc": "",
+                "agentSelectedTool": "customTool"
               }
             }
           ],
@@ -518,11 +637,11 @@
           "agentKnowledgeVSEmbeddings": "",
           "agentEnableMemory": true,
           "agentMemoryType": "allMessages",
-          "agentUserMessage": "",
+          "agentUserMessage": "<p><code>Analyze these flagged audit transactions: </code>{{customFunctionAgentflow_0}}</p>",
           "agentReturnResponseAs": "userMessage",
           "agentUpdateState": "",
           "agentModelConfig": {
-            "cache": "",
+            "credential": "",
             "basePath": "https://llm-proxy-server.apps.inmumocpcl.atrapa.deloitte.com",
             "modelName": "qwen3.5-35b-hacksplosion",
             "temperature": 0.9,
@@ -547,13 +666,13 @@
         "selected": false
       },
       "type": "agentFlow",
-      "width": 288,
-      "height": 104,
+      "width": 253,
+      "height": 100,
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": 257.5,
-        "y": 94.5
+        "x": 493.38559999999984,
+        "y": 113.50640000000004
       }
     }
   ],
@@ -561,15 +680,28 @@
     {
       "source": "startAgentflow_0",
       "sourceHandle": "startAgentflow_0-output-startAgentflow",
+      "target": "customFunctionAgentflow_0",
+      "targetHandle": "customFunctionAgentflow_0",
+      "data": {
+        "sourceColor": "#7EE787",
+        "targetColor": "#E4B7FF",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-customFunctionAgentflow_0-customFunctionAgentflow_0"
+    },
+    {
+      "source": "customFunctionAgentflow_0",
+      "sourceHandle": "customFunctionAgentflow_0-output-customFunctionAgentflow",
       "target": "agentAgentflow_0",
       "targetHandle": "agentAgentflow_0",
       "data": {
-        "sourceColor": "#7EE787",
+        "sourceColor": "#E4B7FF",
         "targetColor": "#4DD0E1",
         "isHumanInput": false
       },
       "type": "agentFlow",
-      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-agentAgentflow_0-agentAgentflow_0"
+      "id": "customFunctionAgentflow_0-customFunctionAgentflow_0-output-customFunctionAgentflow-agentAgentflow_0-agentAgentflow_0"
     }
   ]
 }
